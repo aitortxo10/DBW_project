@@ -1,0 +1,76 @@
+html{
+  height: 100%;
+}
+
+.nav-link{
+  margin-top:30px;
+}
+
+#navbarMenu{
+  padding-top: 30px;
+}
+
+.navbar-end a{
+  padding-right: 10px;
+}
+
+body{
+  height: 100%;
+  background-color:#b8c4db;
+}
+
+.nav-link{
+  margin-top:30px;
+}
+
+#navbarMenu{
+  padding-top: 30px;
+  margin-top:-1%;
+}
+
+#navbarMenu a{
+  padding-right: 10px;
+  color:whitesmoke;
+  font-size: 20px;
+  padding-bottom: 5p;
+  display:inline-block;
+  margin-top: 0;
+  margin-left: 1%;
+}
+.navbar{
+  background-color:#5a79b8;
+  opacity:0.9;
+}
+
+.navbar-brand{
+  margin-top:-0.7%;
+}
+
+#login{
+  float:right;
+  margin-right:1%;
+}
+
+#signup{
+  float: right;
+}
+
+.container{
+  min-width: 80%;
+}
+
+#signup_box{
+  margin-left:40%;
+  margin-top:20%;
+}
+#login_box{
+  display: grid;
+  align-items:center;
+  justify-items: center;
+}
+.container{
+  height: 100%;
+}
+.box{
+  width:60%;
+}
