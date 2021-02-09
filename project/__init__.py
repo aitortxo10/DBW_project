@@ -12,7 +12,7 @@ def create_app():
 
     #We need to set ut a key for the flask login function
     app.config['SECRET_KEY'] = flask_key
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/mydb'
 
     db.init_app(app)
 
