@@ -16,7 +16,7 @@ def create_app():
 
     db.init_app(app)
 
-    #Flask has a built in login manager which we will use to keep track of the user session. Before initializing the app, we need to set up how it
+    #Flask has a built in login manager which we will use to keep track of the user session. Before initializing the app, we need to set up how it will work
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
