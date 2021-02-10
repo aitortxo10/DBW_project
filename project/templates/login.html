@@ -1,22 +1,37 @@
+<!-- templates/login.html -->
+
 {% extends "base.html" %}
 
 {% block content %}
-<div id="login_box" class="container" >
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Login</h3>
     <div class="box">
-      <img class="mb-4" src="img/bootstrap-stack.png" alt="" width="72" height="72">
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <div class="alert alert-danger" role="alert">
-        {{ messages[0] }}
-      </div>
-      {% endif %}
-      {% endwith %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
         <form method="POST" action="/login">
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-          <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
     </div>
 </div>
