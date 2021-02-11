@@ -78,7 +78,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Challenge/User statistics` (
   `Challenge_idChallenge` INT NOT NULL,
-  `user_id` VARCHAR(45) NOT NULL,
+  `user_id` INT NOT NULL,
   `Starting date` DATETIME NULL,
   `Ending date` DATETIME NULL,
   `Tries` INT NULL,
