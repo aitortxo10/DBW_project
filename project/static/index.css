@@ -67,10 +67,24 @@ body{
   display: grid;
   align-items:center;
   justify-items: center;
+  padding-top: 2%;
 }
 .container{
   height: 100%;
 }
 .box{
   width:60%;
+}
+
+form {
+ width: 50%;
+ height: 50%;
+ margin: auto;
+ position: relative;
+ display: inline-block;
+ text-align: center;
+}
+
+#log_button{
+  min-width: 100%;
 }
