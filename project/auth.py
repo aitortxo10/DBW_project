@@ -63,3 +63,9 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('auth.login'))
+
+@auth.route('/exercises')
+@login_required
+def exercises():
+    exercise_list = Challenge.query.all()
+    return render_template('exercises.html', data=exercise_list)
