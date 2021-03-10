@@ -4,8 +4,8 @@ import os
 # Connect to database
 database = "mydb"
 host = "localhost"
-user = "arnau"
-passwd = "Contrasenya"
+user = "root"
+passwd = "password"
 
 connection = pymysql.connect(host='localhost',
                 user=user,

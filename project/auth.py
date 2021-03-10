@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import Users, Challenges
+from .models import *
 from . import db
 from email_validator import validate_email, EmailNotValidError
 
@@ -67,5 +67,11 @@ def signup_post():
 @auth.route('/exercises')
 @login_required
 def exercises():
-    exercise_list = challenges.query.all()
-    return render_template('exercises.html', data=exercise_list)
+    exercise_list = Challenges.query.all()
+    return render_template('exercises.html', exercise_list=exercise_list)
+
+@auth.route('/detailed_exercise')
+@login_required
+def detailed_exercise():
+    challenge=Challenges.query.filter_by(id=id)
+    return render_template('detailed_exercise.html',challenge=challenge)
