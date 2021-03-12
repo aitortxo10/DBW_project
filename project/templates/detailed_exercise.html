@@ -2,9 +2,30 @@
 
 {% block content %}
 <h1 class="title">
-  Welcome, {{name}}!
+  {{ challenge.name }}
 </h1>
 <h2>
-  Exercise related stuff
+  {{ challenge.instructions }}
 </h2>
+<h2>
+  {{challenge.test_data}}
+</h2>
+<div id="hints" class="container">
+  <button onclick="display_hint()" class="btn btn-primary">Hint</button>
+  <div class="container" id="hidden_hint" style="display: none;">
+    <p> {{ challenge.hint }}</p>
+  </div>
+</div>
+
+<script>
+  function display_hint(){
+    var x = document.getElementById("hidden_hint");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+
 {% endblock %}

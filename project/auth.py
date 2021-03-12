@@ -73,5 +73,6 @@ def exercises():
 @auth.route('/detailed_exercise')
 @login_required
 def detailed_exercise():
-    challenge=Challenges.query.filter_by(id=id)
-    return render_template('detailed_exercise.html',challenge=challenge)
+    id=request.args.get('id')
+    challenge=Challenges.query.filter_by(id=id).first()
+    return render_template('detailed_exercise.html',challenge=challenge, id=id)
