@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User
+from .models import *
 from . import db
 from email_validator import validate_email, EmailNotValidError
 
@@ -17,7 +17,7 @@ def login_post():
     password = request.form.get('password')
     remember=True if request.form.get('remember') else False
 
-    user=User.query.filter_by(email=email).first()#Load the information related to the user
+    user=Users.query.filter_by(email=email).first()#Load the information related to the user
 
     if not user or not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
         flash('Incorrect user or password, please try again')
@@ -51,14 +51,14 @@ def signup_post():
         flash(str(e))
         return redirect(url_for('auth.signup'))
 
-    user = User.query.filter_by(email=email).first() # Check if a user with such email already exists
+    user = Users.query.filter_by(email=email).first() # Check if a user with such email already exists
 
     if user: # If a user is found redirect once again to the signup page with the corresponding message
         flash('Email address already exists. ')
         # instead of redirecting, use render_template that allows to pass variables to jinja
         return render_template('signup.html', var="auth.login" )
 
-    new_user=User(email=email, name=name, password=generate_password_hash(password,method='sha256')) #Create a new User class instance with the new data inputted
+    new_user=Users(email=email, name=name, password=generate_password_hash(password,method='sha256')) #Create a new users class instance with the new data inputted
     db.session.add(new_user)#Add the user to the database
     db.session.commit()
 
@@ -67,5 +67,12 @@ def signup_post():
 @auth.route('/exercises')
 @login_required
 def exercises():
-    exercise_list = Challenge.query.all()
-    return render_template('exercises.html', data=exercise_list)
+    exercise_list = Challenges.query.all()
+    return render_template('exercises.html', exercise_list=exercise_list)
+
+@auth.route('/detailed_exercise')
+@login_required
+def detailed_exercise():
+    id=request.args.get('id')
+    challenge=Challenges.query.filter_by(id=id).first()
+    return render_template('detailed_exercise.html',challenge=challenge, id=id)

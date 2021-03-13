@@ -1,0 +1,6 @@
+Name ; GC content
+Instructions ; Calculate percentage of G or C nucleotides in a DNA sequence and provide the answer below with a 5-decimal precision.
+Test_data ; AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+Solution ; 0.41428    
+Hint ; Use a count function.
+Level ; 1
