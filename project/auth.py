@@ -70,9 +70,11 @@ def exercises():
     exercise_list = Challenges.query.all()
     return render_template('exercises.html', exercise_list=exercise_list)
 
-@auth.route('/detailed_exercise')
+@auth.route('/detailed_exercise/<id>/<language>')
 @login_required
-def detailed_exercise():
-    id=request.args.get('id')
+def detailed_exercise(id, language):
+    # use info from the url instead of a request form
+    id=id
+    language=language
     challenge=Challenges.query.filter_by(id=id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id)
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
