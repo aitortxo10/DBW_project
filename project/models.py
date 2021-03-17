@@ -40,6 +40,8 @@ class Challenges(db.Model):
     hint = db.Column(db.Text)
     level = db.Column(db.Integer)
 
+    #languages = db.relationship('ProgrammingLanguages', secondary = languages_challenges, backref=db.backref('ProgrammingLanguages', lazy='dynamic'))
+
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45))

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
 # init SQLAlchemy so we can use it later in our models
+
 db = SQLAlchemy()
 
 flask_key=os.urandom(16)
@@ -11,6 +12,7 @@ def create_app():
     app = Flask(__name__)
 
     #We need to set ut a key for the flask login function
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = flask_key
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/mydb'
 
