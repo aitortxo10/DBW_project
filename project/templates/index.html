@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  This will be the index filling
-</h1>
-<h2 class="subtitle">
-  Statistics...
-</h2>
+<div class="container">
+	<div class="row h-100 align-items-center">
+		<div class="col-sm">
+			<img src="{{ url_for('static', filename='computer.png') }}"></img>
+		</div>
+		<div class="col-sm" style="text-align: center;">
+		<a id="main-page">
+	  		<p>Do you want to improve your bioinformatics analysis skills?</p>
+	  		Start NOW with our fun coding challenges.
+		</a>
+		</div>
+	</div>
+</div>
 {% endblock %}
