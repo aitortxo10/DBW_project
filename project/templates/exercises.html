@@ -3,7 +3,6 @@
 <table class="table">
   <thead>
     <th scope="col">Challenge</th>
-    <th scope="col">Language</th>
     <th scope="col">Score</th>
     <th scope="col">Go to challenge</th>
   </thead>
@@ -11,9 +10,14 @@
     {% for item in exercise_list %}
       <tr>
         <td>{{ item.name}}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.name }}</td>
-        <td> <td><a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id) }}" role="button"> {{item.id}} Go to challenge</a></td>
+        <td>{{ item.level }}</td>
+        {% for language in item.languages %}
+            <td>
+                <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.name) }}" role="button"> {{ language.name }}
+                    <img src="{{ url_for('static', filename='logo/' + language.name + '.png') }}" width="15" height="15">
+                </a>
+            </td>
+        {% endfor %}
       </tr>
     {% endfor %}
   </tbody>

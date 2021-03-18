@@ -19,9 +19,12 @@ def login_post():
 
     user=Users.query.filter_by(email=email).first()#Load the information related to the user
 
-    if not user or not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
-        flash('Incorrect user or password, please try again')
-        return redirect(url_for('auth.login'))
+    if not user:
+        flash('User not registered, please go to sign up')
+    elif not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
+        flash('Incorrect password, please try again')
+    return redirect(url_for('auth.login'))
+
 
     login_user(user, remember=remember)
     return redirect(url_for('main.profile')) #If the login info is correct, load the profile of the user
@@ -70,9 +73,11 @@ def exercises():
     exercise_list = Challenges.query.all()
     return render_template('exercises.html', exercise_list=exercise_list)
 
-@auth.route('/detailed_exercise')
+@auth.route('/detailed_exercise/<id>/<language>')
 @login_required
-def detailed_exercise():
-    id=request.args.get('id')
+def detailed_exercise(id, language):
+    # use info from the url instead of a request form
+    id=id
+    language=language
     challenge=Challenges.query.filter_by(id=id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id)
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)

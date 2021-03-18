@@ -4,3 +4,5 @@ Test_data ; AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCA
 Solution ; 0.41428    
 Hint ; Use a count function.
 Level ; 1
+Languages ; Python3.8,Perl5,R4.0.2,Test
+
