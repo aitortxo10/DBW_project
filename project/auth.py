@@ -21,9 +21,10 @@ def login_post():
 
     if not user:
         flash('User not registered, please go to sign up')
+        return redirect(url_for('auth.login'))
     elif not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
         flash('Incorrect password, please try again')
-    return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
 
 
     login_user(user, remember=remember)
