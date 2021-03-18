@@ -50,6 +50,8 @@ class Challenges(db.Model):
     # many-to-many Languages <-> Challenges
     languages = relationship('ProgrammingLanguages', secondary=languages_challenges, back_populates='challenges')
 
+    #languages = db.relationship('ProgrammingLanguages', secondary = languages_challenges, backref=db.backref('ProgrammingLanguages', lazy='dynamic'))
+
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45))

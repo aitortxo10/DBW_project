@@ -65,10 +65,10 @@ def signup_post():
     db.session.add(new_user)#Add the user to the database
     db.session.commit()
 
-    return redirect(url_for('auth.login'))
+    login_user(new_user, remember=True)
+    return redirect(url_for('main.profile'))
 
 @auth.route('/exercises')
-@login_required
 def exercises():
     exercise_list = Challenges.query.all()
     return render_template('exercises.html', exercise_list=exercise_list)
