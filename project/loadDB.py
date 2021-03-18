@@ -54,7 +54,7 @@ for problem in os.listdir("problems"):
                         com = "SELECT id FROM programming_languages WHERE name = {};".format("'" + lang + "'")
                         print(com)
                         c.execute(com)
-                        l_id = c.fetchone()[0]
+                        l_id = c.fetchone() # returns tuple with (id, name) or None if empty
                         print(l_id)
 
                         # if language not yet in the table
@@ -63,8 +63,8 @@ for problem in os.listdir("problems"):
                             print(to_exec)
                             c.execute(to_exec)
                             l_id = c.lastrowid
-
-
+                        else:
+                            l_id = l_id[0]
                         # add the languages available into the languages_challenges table
                         comm = sthLP.format("'" + str(c_id) + "'," +  "'" + str(l_id) + "'," + "'example_code'")
                         print(comm)
