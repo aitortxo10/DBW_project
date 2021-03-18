@@ -1,0 +1,7 @@
+Name ; Dinucleotide count
+Instructions ; Calculate the number of occurrences of the dinucleotides AA or TT given a DNA sequence. In the answer, order the dinucleotides alphabetically.
+Test_data ; AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+Solution ; AA 8\nTT 5
+Hint ; Be aware that trinucleotides such as TTT can be contain 2 dincucleotides TT and TT.
+Level ; 2
+Languages ; Python3.8
