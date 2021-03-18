@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Challenge`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Challenge` (
-  `idChallenge` INT NOT NULL,
+  `idChallenge` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Level` INT NULL,
   `Instructions` LONGTEXT NULL,

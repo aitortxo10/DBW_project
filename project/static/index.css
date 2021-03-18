@@ -1,90 +1,156 @@
-html{
-  height: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Roboto+Mono:wght@200&display=swap");
+
+* {
+	box-sizing: border-box;
 }
 
-.nav-link{
-  margin-top:30px;
+html, body{
+	position: relative;
+	min-height: 100%;
 }
 
-#navbarMenu{
-  padding-top: 30px;
+.navbar {
+    -o-transition: all .6s;
+    -moz-transition: all .6s;
+    -webkit-transition: all .6s;
+    -ms-transition: all .6s;
+    transition: all .6s;
 }
 
-.navbar-end a{
-  padding-right: 10px;
+#weblogo{
+    height: auto;
+    width: auto;
+   	cursor: pointer;
+    max-height: 60px;
+    max-width: 250px;
+    padding-left: 30px;
 }
 
 body{
-  height: 100%;
-  background-color:#b8c4db;
+	background-color: #22222e;
+	color: whitesmoke;
 }
 
-.nav-link{
-  margin-top:30px;
+a {
+	font-family: "Nunito", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	color: whitesmoke;
+	text-decoration: none;
+	margin-right: auto;
 }
 
-#navbarMenu{
-  padding-top: 30px;
-  margin-top:-1%;
+#general_body{
+	padding: 70px 0;
 }
 
-#navbarMenu a{
-  padding-right: 10px;
-  color:whitesmoke;
+#main-page{
+  font-family: "Roboto", mono;
+  font-weight: 200;
   font-size: 20px;
-  padding-bottom: 5p;
-  display:inline-block;
-  margin-top: 0;
-  margin-left: 1%;
-}
-.navbar{
-  background-color:#5a79b8;
-  opacity:0.9;
 }
 
-.navbar-brand{
-  margin-top:-0.7%;
+
+.nav-link {
+	text-decoration: none!important;;
+	list-style: none;
+	display: inline-block;
+	padding: 0px 20px;
+	transition: all 0.3s ease 0s;
 }
 
-#login{
-  float:right;
-  margin-right:1%;
+.nav-link:hover {
+	color: #40c999;
 }
 
-#signup{
+.navbar-dark .navbar-nav {
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+}
+ 
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+    border: 0;
+}
+ 
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+ 
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: #fff;
+    outline: 0;
+}
+ 
+.navbar-expand-md .navbar-nav .nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+ 
+/*
+button{
+	padding: 9px 25px;
+	background-color: #40c999;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+button:hover {
+	background-color: ;
+}
+*/
+
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+  padding: 20px;
+  background: #343445;
+ }
+
+.footer > .container {
+	text-align: right;
+	padding-right: 15px;
+  	padding-left: 15px;
+}
+
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+
+
+/* Colors */
+.bg-blue {
+  background-color:#7280b8; /*#2B3856 */
+}
+
+.bg-custom {
+  background-color: #343445;
+}
+
+.navbar-collapse li:hover {
+  /* background-color: #15317E; */
+  color: black;
+  transform: scale(1.15);
+}
+
+.navbar-right {
   float: right;
 }
 
-.container{
-  min-width: 80%;
+.custom-container {
+    width: auto;
 }
 
-#signup_box{
-  margin-left:40%;
-  margin-top:20%;
-}
-#login_box{
-  display: grid;
-  align-items:center;
-  justify-items: center;
-  padding-top: 2%;
-}
-.container{
-  height: 100%;
-}
-.box{
-  width:60%;
-}
-
-form {
- width: 50%;
- height: 50%;
- margin: auto;
- position: relative;
- display: inline-block;
- text-align: center;
-}
-
-#log_button{
-  min-width: 100%;
-}
+/* Dropdown menu on hover */
+.navbar .nav-item .dropdown-menu{ display: none; }
+.navbar .nav-item:hover .dropdown-menu{ display: block; }
+.navbar .nav-item .dropdown-menu{ margin-top:0; }

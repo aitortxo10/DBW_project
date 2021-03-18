@@ -1,0 +1,110 @@
+/* GENERIC STYLES */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  background-image: url('../../img/barcelona.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #c7dbff;
+}
+
+body > .container {
+  padding-bottom: 15px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* HOME PAGE */
+
+.bg-blue {
+  background-color:#7280b8; /*#2B3856 */
+}
+
+.bg-custom {
+  background-color: #f2f2f2c9;
+}
+
+.bg-lila {
+    background-color: #7848bd;
+}
+
+.bg-yellow {
+    background-color: #ffc933;
+    opacity: 0.85;
+}
+
+.logo-link {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    margin: 0;
+    align-items: center;
+    list-style: none;
+    padding: 0px;
+}
+
+.navbar-collapse li:hover {
+  /* background-color: #15317E; */
+  color: black;
+  transform: scale(1.15);
+}
+
+.navbar-right {
+  float: right;
+}
+
+.custom-container {
+    width: auto;
+}
+
+.top-header {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.text-stroke {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  font-size: 3.5rem;
+}
+
+/* Dropdown menu on hover */
+.navbar .nav-item .dropdown-menu{ display: none; }
+.navbar .nav-item:hover .dropdown-menu{ display: block; }
+.navbar .nav-item .dropdown-menu{ margin-top:0; }
+
+
+/* Cutre version to hide/unhide elements */
+.clicker {
+    cursor:pointer;
+}
+
+.hiddendiv{
+    display:none;
+}
+
+.clicker:focus ~ .hiddendiv{
+    display:block;
+}
+
+.clicker:focus ~ .nohidden{
+    display: none;
+}
