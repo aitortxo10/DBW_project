@@ -71,7 +71,8 @@ def signup_post():
 
 @auth.route('/exercises')
 def exercises():
-    exercise_list = Challenges.query.all()
+    exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages)
+
     return render_template('exercises.html', exercise_list=exercise_list)
 
 @auth.route('/detailed_exercise/<id>/<language>')
@@ -82,3 +83,8 @@ def detailed_exercise(id, language):
     language=language
     challenge=Challenges.query.filter_by(id=id).first()
     return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
+
+@auth.route('/test')
+def testing():
+    var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
+    return "Hi"
