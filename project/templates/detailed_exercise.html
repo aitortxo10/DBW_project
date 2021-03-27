@@ -15,6 +15,15 @@
   <div class="container" id="hidden_hint" style="display: none;">
     <p> {{ challenge.hint }}</p>
   </div>
+
+  <form method="POST" action="/test">
+      <div class="field">
+          <div class="control">
+              <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+          </div>
+      </div>
+      <button class="btn btn-primary" id="log_button">Submit Answer</button>
+  </form>
 </div>
 
 <script>
@@ -27,5 +36,37 @@
     }
   }
 </script>
+
+<!-- Two possible options for the start-time button -->
+<script type=text/javascript>
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+    // this method gets called if the state of the request changes (it succeeds of fails)
+    // you will probably want to update your page accordingly here
+    };
+    request.open('POST', '/test2');
+    request.send();
+</script>
+<script type=text/javascript>
+    $(function() {
+      $('a#test').bind('click', function() {
+        $.getJSON($SCRIPT_ROOT + '/background_process_test',
+            function(data) {
+          //do nothing with the JSON data comming from the Flask APP.
+        });
+        return false;
+      });
+    });
+</script>
+
+
+<!-- Button to start timing -->
+<div class='container'>
+<h3>Test</h3>
+    <form>
+        <a href="#" id="test"><button class='btn btn-default'>Test</button></a>
+    </form>
+
+</div>
 
 {% endblock %}
