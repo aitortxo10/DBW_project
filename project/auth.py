@@ -108,7 +108,7 @@ def testing():
 
         if var: # if it exists, update some of the stats
             var.solved = correct
-            var.end_date=ts if correct else None
+            var.end_date=ts 
             var.tries += 1
         else:
             var = ChallengesStats(challenges_id=id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
