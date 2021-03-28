@@ -5,6 +5,7 @@ from .models import *
 from . import db
 from email_validator import validate_email, EmailNotValidError
 import datetime
+from pylint.lint import Run
 
 auth = Blueprint('auth', __name__)
 
@@ -87,8 +88,8 @@ def detailed_exercise(id, language):
     Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
     return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, Stats=Stats)
 
-@auth.route('/test', methods=['POST'])
-def testing():
+@auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
+def detailed_exercise_post(id, language):
     # we have to get challenge id and programming language from URL
     user_id = current_user.id
     id=id
@@ -101,19 +102,66 @@ def testing():
     if correct == True:
         var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
 
-        ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        time=datetime.datetime.now()
+        ts = time.strftime('%Y-%m-%d %H:%M:%S')
 
         # check if user has tried the challenge already
         var = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
 
         if var: # if it exists, update some of the stats
             var.solved = correct
-            var.end_date=ts 
+            var.end_date=ts
             var.tries += 1
         else:
             var = ChallengesStats(challenges_id=id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
-            db.session.add(var)
 
+        start = datetime.datetime.strptime(var.start_date, '%Y-%m-%d %H:%M:%S')
+        df=(time-start).total_seconds()
+        reference=df/172800  #Two days should be the standard to solve a problem
+
+        if reference <= 1:
+            pen_time=0
+        elif reference<=1.5:
+            pen_time=0.5
+        elif reference <=2:
+            pen_time=1
+        elif reference <=2.5:
+            pen_time=1.5
+        elif reference <= 3:
+            pen_time=2
+        else:
+            pen_time=2.5
+
+        if var.tries >4:
+            pen_tries = 2.5
+        else:
+            pen_tries = 0.5*var.tries
+
+        hints=request.form.get("hints")
+
+        uploaded_file=request.files['files']
+        if uploaded_file:
+            results = Run([uploaded_file], do_exit=False)
+            mark=results.linter.stats['global_note']
+
+            if mark <=0:
+                pen_pyl=2.5
+            elif mark <=2:
+                pen_pyl=2
+            elif mark <=4:
+                pen_pyl=1.5
+            elif mark <=6:
+                pen_pyl=1
+            elif mark <=8:
+                pen_pyl=0.5
+            else:
+                pen_pyl=0
+        else:
+            pen_pyl=2.5
+
+        score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
+
+        db.session.add(var)
         db.session.commit()
 
         flash("Problem solved correctly")

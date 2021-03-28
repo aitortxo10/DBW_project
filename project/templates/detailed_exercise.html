@@ -32,13 +32,15 @@
       <p> {{ challenge.hint }}</p>
     </div>
 
-    <form method="POST" action="/test">
+    <form method="POST" action="/detailed_exercise">
         <div class="field">
             <div class="control">
                 <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+                <input type="file" name="file" accept=".py">
+                <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''
             </div>
         </div>
-        <button class="btn btn-primary" id="log_button">Submit Answer</button>
+        <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
     </form>
   </div>
 <div>
@@ -47,6 +49,18 @@
     var x = document.getElementById("hidden_hint");
     if (x.style.display === "none") {
       x.style.display = "block";
+    }
+  }
+</script>
+
+<script>
+  function set_hidden_values(){
+    var x = document.getElementById("hidden_hint");
+    if (x.style.display === "none") {
+      document.getElementById("hints").value=0
+    }
+    else{
+      document.getElementById("hints").value=1
     }
   }
 </script>
