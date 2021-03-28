@@ -80,37 +80,48 @@ def exercises():
 @login_required
 def detailed_exercise(id, language):
     # use info from the url instead of a request form
+    user_id=current_user.id
     id=id
     language=language
     challenge=Challenges.query.filter_by(id=id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
+    Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, Stats=Stats)
 
 @auth.route('/test', methods=['POST'])
 def testing():
     # we have to get challenge id and programming language from URL
     user_id = current_user.id
+    id=id
+    language=language
 
-    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=1).first()
+    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=id).first()
     answer = request.form.get('answer')
     correct = (correct_answer == answer)
-    var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
 
-    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if correct == True:
+        var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
 
-    # check if user has tried the challenge already
-    var = ChallengesStats.query.filter_by(challenges_id=1,users_id=user_id).first()
+        ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    if var: # if it exists, update some of the stats
-        var.solved = correct
-        var.end_date=ts if correct else None
-        var.tries += 1
+        # check if user has tried the challenge already
+        var = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
+
+        if var: # if it exists, update some of the stats
+            var.solved = correct
+            var.end_date=ts if correct else None
+            var.tries += 1
+        else:
+            var = ChallengesStats(challenges_id=id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
+            db.session.add(var)
+
+        db.session.commit()
+
+        flash("Problem solved correctly")
+        return redirect(url_for('exercises'))
+
     else:
-        var = ChallengesStats(challenges_id=1,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
-        db.session.add(var)
-
-    db.session.commit()
-
-    return str(correct_answer == answer)
+        flash("Incorrect Answer")
+        return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
 
 # background process happening without any refreshing
 @auth.route('/background_process_test')
