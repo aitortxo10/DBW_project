@@ -237,3 +237,7 @@ body.my-login-page {
   background-color: #22222e;
   border-color:#22222e;
 }
+
+a {
+    text-decoration: none !important;
+}
