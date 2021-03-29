@@ -22,7 +22,7 @@ def login_post():
     user=Users.query.filter_by(email=email).first()#Load the information related to the user
 
     if not user:
-        flash('User not registered, please go to sign up')
+        flash('User not registered, please sign up')
         return redirect(url_for('auth.login'))
     elif not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
         flash('Incorrect password, please try again')
