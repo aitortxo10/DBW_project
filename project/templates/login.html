@@ -1,38 +1,83 @@
 <!-- templates/login.html -->
 
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% block content %}
-<div class="column is-4 is-offset-4">
-    <div class="container" id=login_box>
-        <h3 class="title">Login</h3>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="form-control input-lg" type="email" name="email" placeholder="Please enter your Email" autofocus="">
+    <title>DBW Project</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='index.css') }}">
+
+  </head>
+
+
+<body class="my-login-page h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="brand" >
+                        <a href="{{ url_for('main.index') }}">
+                            <img src="{{ url_for('static', filename='logo1.png') }}" alt="bioCodemy" >
+                        </a>
+                    </div>
+                    <div class="card fat">
+                        <div class="card-body">
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ messages[0] }}
+                                </div>
+                            {% endif %}
+                            {% endwith %}
+                            <form method="POST" action="/login">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="form-control input-lg" type="email" name="email" placeholder="Please enter your Email" autofocus="">
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="form-control input-lg" type="password" name="password" placeholder="Please enter your Password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="checkbox"  style="font-family: Nunito, sans-serif; font-weight: 400;font-size: 16px">
+                                        <input type="checkbox">
+                                            Remember me
+                                    </label>
+                                </div>
+                                <div class="m-0">
+                                    <button class="btn btn-primary btn-block custom-btn" id="log_button"  style="font-family: Nunito, sans-serif; font-weight: 400;font-size: 18px">Log In</button>
+                                </div>
+                            </form>
+                            <hr style="height:2px;border-width:0;background-color:#40c999"></hr>
+                            <div class="mt-6 text-center text-ui-text-lc text-xs"><span class="ml-1" style="font-family: Nunito, sans-serif; font-weight: 400;font-size: 16px">Don't have an account?   </span><a href="{{ url_for('auth.signup') }}" onmouseover="this.style.color='#40c999';" onmouseout="this.style.color='';" tabindex="-1"><b>Sign up</b></a></div>
+                        </div>
+                    </div>
+
+                    <h5 style="text-align: center; padding-top: 30px; font-family: Nunito, sans-serif;font-weight: 400; font-size: 15px; color: #5b5b6e">
+                        &copy; 2021 bioCodemy
+                    </h5>
+
                 </div>
             </div>
+        </div>
 
-            <div class="field">
-                <div class="control">
-                    <input class="form-control input-lg" type="password" name="password" placeholder="Please enter your Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-primary" id="log_button">Login</button>
-        </form>
-    </div>
-</div>
-{% endblock %}
+
+
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>
