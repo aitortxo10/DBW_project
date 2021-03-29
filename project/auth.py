@@ -79,12 +79,16 @@ def exercises():
 @auth.route('/detailed_exercise/<id>/<language>')
 @login_required
 def detailed_exercise(id, language):
-    # use info from the url instead of a request form
+    # get parametres from url
     id=id
-    language=language
+    language_id=ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     challenge=Challenges.query.filter_by(id=id).first()
-    # Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language) #, Stats=Stats)
+    user_id = current_user.id
+
+    # check if the exercise was started before by the same user
+    stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id, programming_languages_id=language_id).first()
+
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
 @auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
 def detailed_exercise_post(id, language):
@@ -178,6 +182,7 @@ def background_process_test(challenge, language):
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     challenge=int(challenge)
+
     # check if the entry existed already
     var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=challenge, programming_languages_id=language_id).first()
     if var: # if the entry exists (meaning user already started/tried the challenge before)

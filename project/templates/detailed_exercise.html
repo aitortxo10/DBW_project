@@ -44,6 +44,7 @@
     </form>
   </div>
 <div>
+
 <script>
   function display_hint(){
     var x = document.getElementById("hidden_hint");
@@ -74,6 +75,10 @@
     document.getElementById("challenge_start").style.display = 'none';
   }
 </script>
+<!-- If the challenge was already started, directly hide the start timer button -->
+{% if stats %}
+<script>start_challenge();</script>
+{% endif %}
 
 <!-- Two possible options for the start-time button
 <script type=text/javascript>
