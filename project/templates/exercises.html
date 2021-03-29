@@ -13,8 +13,8 @@
         <td>{{ item.level }}</td>
         {% for language in item.languages %}
             <td>
-                <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.name) }}" role="button"> {{ language.name }}
-                    <img src="{{ url_for('static', filename='logo/' + language.name + '.png') }}" width="15" height="15">
+                <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
+                    <img src="{{ url_for('static', filename='logo/' + language.languages.name + '.png') }}" width="15" height="15">
                 </a>
             </td>
         {% endfor %}
