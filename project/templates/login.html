@@ -20,17 +20,17 @@
   </head>
 
 
-<body class="my-login-page">
-    <section class="h-100">
+<body class="my-login-page h-100">
         <div class="container h-100">
             <div class="row justify-content-md-center h-100">
                 <div class="card-wrapper">
-                    <div class="brand">
-                        <img src="{{ url_for('static', filename='logo1.png') }}" alt="logo">
+                    <div class="brand" >
+                        <a href="{{ url_for('main.index') }}">
+                            <img src="{{ url_for('static', filename='logo1.png') }}" alt="bioCodemy" >
+                        </a>
                     </div>
                     <div class="card fat">
                         <div class="card-body">
-                            <h4 class="card-title">Login</h4>
                             {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 <div class="alert alert-danger" role="alert">
@@ -56,14 +56,17 @@
                                             Remember me
                                     </label>
                                 </div>
-                                <button class="btn btn-primary" id="log_button">Login</button>
+                                <div class="m-0">
+                                    <button class="btn btn-primary btn-block custom-btn" id="log_button">Log In</button>
+                                </div>
                             </form>
+                            <hr style="height:2px;border-width:0;background-color:#40c999"></hr>
+                            <div class="mt-6 text-center text-ui-text-lc text-xs"><span class="ml-1">Don't have an account?  </span><a class="underline" data-turbolinks="false" href="{{ url_for('auth.signup') }}" tabindex="-1"><b>Sing up</b></a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
 
 
@@ -73,3 +76,4 @@
 </body>
 
 </html>
++
