@@ -1,77 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="alert alert-danger" role="alert">
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
 <h1 class="title">
   {{ challenge.name }}
 </h1>
 <h2>
   {{ challenge.instructions }}
 </h2>
+<h2>
+  {{challenge.test_data}}
+</h2>
+<div id="hints" class="container">
+  <button onclick="display_hint()" class="btn btn-primary">Hint</button>
+  <div class="container" id="hidden_hint" style="display: none;">
+    <p> {{ challenge.hint }}</p>
+  </div>
 
-<div class="container" id ="challenge_start">
-  <form>
-      <a href="#" id="test"><button class='btn btn-default' onclick="start_challengue()">Start the Challenge</button></a>
+  <form method="POST" action="/test">
+      <div class="field">
+          <div class="control">
+              <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+          </div>
+      </div>
+      <button class="btn btn-primary" id="log_button">Submit Answer</button>
   </form>
 </div>
 
-<div id="challenge" class="container" style="display: none;">
-
-  <h2>
-    {{challenge.test_data}}
-  </h2>
-  <div id="hints" class="container">
-    <button onclick="display_hint()" class="btn btn-primary" id="start">Hint</button>
-    <div class="container" id="hidden_hint" style="display: none;">
-      <p> {{ challenge.hint }}</p>
-    </div>
-
-    <form method="POST" action="/detailed_exercise">
-        <div class="field">
-            <div class="control">
-                <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
-                <input type="file" name="file" accept=".py">
-                <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
-    </form>
-  </div>
-<div>
 <script>
   function display_hint(){
     var x = document.getElementById("hidden_hint");
     if (x.style.display === "none") {
       x.style.display = "block";
+    } else {
+      x.style.display = "none";
     }
-  }
-</script>
-
-<script>
-  function set_hidden_values(){
-    var x = document.getElementById("hidden_hint");
-    if (x.style.display === "none") {
-      document.getElementById("hints").value=0
-    }
-    else{
-      document.getElementById("hints").value=1
-    }
-  }
-</script>
-
-<script>
-  function start_challengue(){
-    var x = document.getElementById("challenge");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    }
-    document.getElementById("challenge_start").style.display = 'none';
   }
 </script>
 
@@ -96,5 +58,15 @@
       });
     });
 </script>
+
+
+<!-- Button to start timing -->
+<div class='container'>
+<h3>Test</h3>
+    <form>
+        <a href="#" id="test"><button class='btn btn-default'>Test</button></a>
+    </form>
+
+</div>
 
 {% endblock %}

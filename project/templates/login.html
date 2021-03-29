@@ -1,38 +1,75 @@
 <!-- templates/login.html -->
 
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% block content %}
-<div class="column is-4 is-offset-4">
-    <div class="container" id=login_box>
-        <h3 class="title">Login</h3>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="form-control input-lg" type="email" name="email" placeholder="Please enter your Email" autofocus="">
+    <title>DBW Project</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='index.css') }}">
+
+  </head>
+
+
+<body class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="brand">
+                        <img src="{{ url_for('static', filename='logo1.png') }}" alt="logo">
+                    </div>
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title">Login</h4>
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ messages[0] }}
+                                </div>
+                            {% endif %}
+                            {% endwith %}
+                            <form method="POST" action="/login">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="form-control input-lg" type="email" name="email" placeholder="Please enter your Email" autofocus="">
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="form-control input-lg" type="password" name="password" placeholder="Please enter your Password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                            Remember me
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary" id="log_button">Login</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="field">
-                <div class="control">
-                    <input class="form-control input-lg" type="password" name="password" placeholder="Please enter your Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-primary" id="log_button">Login</button>
-        </form>
-    </div>
-</div>
-{% endblock %}
+
+
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>
