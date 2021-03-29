@@ -172,22 +172,27 @@ def detailed_exercise_post(id, language):
         return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
 
 # background process happening without any refreshing
-@auth.route('/background_process_test')
-def background_process_test():
+@auth.route('/create_entry/<challenge>/<language>', methods=['GET'])
+def background_process_test(challenge, language):
 
+    #obtain current user id, a current time and programming language used
     user_id = current_user.id
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    # we need to recover challenge and language id
-    var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=2, programming_languages_id=2).first()
-
+    language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
+    challenge=int(challenge)
+    print(user_id, language_id, challenge)
+    # check if the entry existed already
+    var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=challenge, programming_languages_id=language_id).first()
+    print(var)
     if var: # if the entry exists (meaning user already started/tried the challenge before)
         if not var.start_date: # if start time was not set before, set it now
             var.start_date = ts
     else: # create the entry with the current timestamp as start_date
-        var = ChallengesStats(challenges_id=2,  users_id=user_id, start_date=ts, end_date=None, programming_languages_id=2)
+        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id)
+        print("hello")
         db.session.add(var)
 
+    print("committing")
     db.session.commit()
     return "nothing"
 
