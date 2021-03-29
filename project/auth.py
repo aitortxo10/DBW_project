@@ -180,19 +180,16 @@ def background_process_test(challenge, language):
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     challenge=int(challenge)
-    print(user_id, language_id, challenge)
     # check if the entry existed already
     var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=challenge, programming_languages_id=language_id).first()
-    print(var)
     if var: # if the entry exists (meaning user already started/tried the challenge before)
         if not var.start_date: # if start time was not set before, set it now
             var.start_date = ts
     else: # create the entry with the current timestamp as start_date
         var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id)
-        print("hello")
         db.session.add(var)
 
-    print("committing")
+
     db.session.commit()
     return "nothing"
 
