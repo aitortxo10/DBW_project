@@ -83,39 +83,38 @@ def detailed_exercise(id, language):
     id=id
     language=language
     challenge=Challenges.query.filter_by(id=id).first()
-    Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, Stats=Stats)
+    # Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language) #, Stats=Stats)
 
 @auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
 def detailed_exercise_post(id, language):
-    # we have to get challenge id and programming language from URL
+
+    # obtain parametres such as current user and challenge and language
     user_id = current_user.id
-    id=id
-    language=language
-
-    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=id).first()
-    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=1).first()
-    answer = request.form.get('answer')
-    correct = (correct_answer == answer)
-    var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
-
+    challenge_id = id
+    language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+    # Check if user answer is right
+    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=id).first()
+    user_answer = request.form.get('answer')
+
+    correct = (correct_answer == user_answer)
+
+    if var: # if it exists, update some of the stats
+        var.solved = correct
+        var.end_date=ts
+        var.tries += 1
+
+    else:
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=languge_id)
+
+
+
     if correct == True:
-        var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
 
         time=datetime.datetime.now()
         ts = time.strftime('%Y-%m-%d %H:%M:%S')
-
-        # check if user has tried the challenge already
-        var = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
-
-        if var: # if it exists, update some of the stats
-            var.solved = correct
-            var.end_date=ts
-            var.tries += 1
-        else:
-            var = ChallengesStats(challenges_id=id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
 
         start = datetime.datetime.strptime(var.start_date, '%Y-%m-%d %H:%M:%S')
         df=(time-start).total_seconds()
@@ -162,27 +161,13 @@ def detailed_exercise_post(id, language):
             pen_pyl=2.5
 
         score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
-    # check if user has tried the challenge already
-    var = ChallengesStats.query.filter_by(challenges_id=1,users_id=user_id).first()
-
-    if var: # if it exists, update some of the stats
-        var.solved = correct
-        var.end_date=ts if correct else None
-        var.tries += 1
-    else:
-        var = ChallengesStats(challenges_id=1,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
-        db.session.add(var)
-        db.session.commit()
 
         flash("Problem solved correctly")
         return redirect(url_for('exercises'))
-    db.session.commit()
 
     else:
         flash("Incorrect Answer")
         return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
-    return str(correct_answer == answer)
-
 
 # background process happening without any refreshing
 @auth.route('/create_entry/<challenge>/<language>', methods=['GET'])
@@ -209,4 +194,3 @@ def background_process_test(challenge, language):
 def test2():
     print("Test2")
     return "testing"
-
