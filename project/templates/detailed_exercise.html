@@ -16,9 +16,13 @@
 </h2>
 
 <div class="container" id ="challenge_start">
+<<<<<<< HEAD
   <form>
-      <a href="#" id="test"><button class='btn btn-default' onclick="start_challengue()">Start the Challenge</button></a>
+      <a href="#" id="test"><button class='btn btn-default' onclick="start_challenge()">Start the Challenge</button></a>
   </form>
+=======
+  <button class='btn btn-default' id="test" onclick="start_challengue()">Start the Challenge</button>
+>>>>>>> 45e835757b9910e489516569a08fab0dd6f0a4f4
 </div>
 
 <div id="challenge" class="container" style="display: none;">
@@ -66,7 +70,7 @@
 </script>
 
 <script>
-  function start_challengue(){
+  function start_challenge(){
     var x = document.getElementById("challenge");
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -75,7 +79,7 @@
   }
 </script>
 
-<!-- Two possible options for the start-time button -->
+<!-- Two possible options for the start-time button
 <script type=text/javascript>
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -84,11 +88,14 @@
     };
     request.open('POST', '/test2');
     request.send();
-</script>
+</script> -->
 <script type=text/javascript>
+    let challenge = JSON.parse('{{id | tojson }}');
+    let language = JSON.parse('{{language | tojson }}');
+
     $(function() {
       $('a#test').bind('click', function() {
-        $.getJSON($SCRIPT_ROOT + '/background_process_test',
+        $.getJSON($SCRIPT_ROOT + '/create_entry/'+ challenge +'/'+ language,
             function(data) {
           //do nothing with the JSON data comming from the Flask APP.
         });
