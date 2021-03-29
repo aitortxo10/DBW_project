@@ -16,9 +16,7 @@
 </h2>
 
 <div class="container" id ="challenge_start">
-  <form>
-      <a href="#" id="test"><button class='btn btn-default' onclick="start_challengue()">Start the Challenge</button></a>
-  </form>
+  <button class='btn btn-default' id="test" onclick="start_challengue()">Start the Challenge</button>
 </div>
 
 <div id="challenge" class="container" style="display: none;">
@@ -87,7 +85,7 @@
 </script>
 <script type=text/javascript>
     $(function() {
-      $('a#test').bind('click', function() {
+      $('#test').bind('click', function() {
         $.getJSON($SCRIPT_ROOT + '/background_process_test',
             function(data) {
           //do nothing with the JSON data comming from the Flask APP.
