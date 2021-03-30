@@ -55,21 +55,21 @@
 
     <div class="container" id="problem_container" style="margin-bottom: 0">
       <a style="font-size: 20px; font-weight: 600">Your Solution</a>
-      <form method="POST" action="/detailed_exercise{{id}}/{{language}}"  enctype = "multipart/form-data">
+      <form method="POST" action="/detailed_exercise/{{id}}/{{language}}"  enctype = "multipart/form-data">
           <div class="control">
               <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
               {% if language=="Python3.8" %}
               <div style="font-family: 'Nunito', sans-serif; font-weight: 400; padding: 20px 0 10px 15px; font-size: 18px">Would you like to evaluate the quality of your code? Submit it here: </div>
               <input style="padding-left: 15px" type="file" name="file" accept=".py">
               {% endif %}
-              <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
+              <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value='0'>
           </div>
           <button class="btn btn-primary" id="problem_button" style="margin-top: 35px; margin-left: 15px">Submit Answer</button>
       </form>
     </div>
   </div>
 
-</div>  
+</div>
 
 <script>
   function display_hint(){

@@ -4,6 +4,11 @@
 <h1 class="title" align="center">
   Welcome, {{name}}!
 </h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<h1> {{ messages[0] }}</h1>
+{% endif %}
+{% endwith%}
 <div class="row">
     <div id="sidebar" class="col-sm-4">
         Hello

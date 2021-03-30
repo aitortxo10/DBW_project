@@ -30,6 +30,8 @@ def login_post():
 
 
     login_user(user, remember=remember)
+    if user.last_login:
+        flash(user.last_login)
     user.last_login = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     db.session.commit()
     return redirect(url_for('main.profile')) #If the login info is correct, load the profile of the user
@@ -75,7 +77,7 @@ def signup_post():
 
 @auth.route('/exercises')
 def exercises():
-    exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages)
+    exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).order_by(Challenges.level)
 
     return render_template('exercises.html', exercise_list=exercise_list)
 
@@ -112,8 +114,9 @@ def detailed_exercise_post(id,language):
 
     var = ChallengesStats.query.filter_by(challenges_id=challenge_id, programming_languages_id=language_id, users_id=user_id).first()
 
-    if not var:
-        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=language_id)
+    if not var: # if the challenge was not started
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, tries=0, programming_languages_id=language_id)
+        db.add(var)
 
     if correct == True:
 
@@ -152,7 +155,7 @@ def detailed_exercise_post(id,language):
 
         if language == "Python3.8":
 
-            uploaded_file=request.files['files']
+            uploaded_file=request.files['file']
             if uploaded_file:
                 results = Run([uploaded_file], do_exit=False)
                 mark=results.linter.stats['global_note']
@@ -175,7 +178,7 @@ def detailed_exercise_post(id,language):
             score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
 
         else:
-            score=10*(7.5 - 2.5*hints - pen_tries - pen_time -pen_pyl)/7.5
+            score=10*(7.5 - 2.5*hints - pen_tries - pen_time)/7.5
 
         db.session.commit()
         flash("Problem solved correctly")
@@ -185,7 +188,10 @@ def detailed_exercise_post(id,language):
         db.session.commit()
         flash((var.start_date))
         challenge=Challenges.query.filter_by(id=challenge_id).first()
-        return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
+
+        # check if the exercise was started before by the same user
+        stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id, programming_languages_id=language_id).first()
+        return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
 # background process happening without any refreshing
 @auth.route('/create_entry/<challenge>/<language>', methods=['GET'])
@@ -202,7 +208,7 @@ def background_process_test(challenge, language):
     if var: # if the entry exists (meaning user already started/tried the challenge before)
         var.start_date=ts
     else: # create the entry with the current timestamp as start_date
-        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id)
+        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id, tries=0)
         db.session.add(var)
 
 
