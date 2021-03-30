@@ -42,7 +42,7 @@
       <form method="POST" action="/detailed_exercise">
           <div class="field">
               <div class="control">
-                  <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+                  <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required>
                   <input type="file" name="file" accept=".py">
                   <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
               </div>
@@ -50,7 +50,7 @@
           <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
       </form>
     </div>
-  <div>
+  </div>
 </div>
 
 <script>
