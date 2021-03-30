@@ -27,30 +27,42 @@
 
   <div id="challenge" class="container" style="display: none;">
 
-    Sample data
-    <div class="container" id="dataset">
-      <h2 style="font-family: 'Roboto Mono', monospace; font-weight: 200; font-size: 23px; color: whitesmoke;">
-        {{challenge.test_data}}
-      </h2>
-    </div>
     <div id="hints" class="container">
-      <button onclick="display_hint()" class="btn btn-primary" id="start">Hint</button>
+      <button onclick="display_hint()" class="btn btn-primary" id="problem_button">Need some help?</button>
       <div class="container" id="hidden_hint" style="display: none;">
         <p> {{ challenge.hint }}</p>
       </div>
-
-      <form method="POST" action="/detailed_exercise">
-          <div class="field">
-              <div class="control">
-                  <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
-                  <input type="file" name="file" accept=".py">
-                  <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
-              </div>
-          </div>
-          <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
-      </form>
     </div>
-  <div>
+
+<!--    <div class="container" id="dataset">
+      <a style="font-family: 'Roboto Mono', monospace; font-weight: 200; font-size: 23px; color: whitesmoke;">
+        {{challenge.test_data}}
+      </a>
+    </div> -->
+
+    <div class="container" id="problem_container">
+      <a style="font-size: 23px">Data</a>
+      <div class="container" id="dataset">
+        <a class="roboto" style="font-size: 23px; word-break: break-all">
+          {{challenge.test_data}}
+        </a>
+      </div>
+    </div>
+
+    <form method="POST" action="/detailed_exercise">
+        <div class="field">
+            <div class="control">
+                <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+                  <div class="container" style="padding: 10px 0 10px 0; font-family: 'Nunito', sans-serif; font-weight: 400; font-size: 23px; color: whitesmoke;">
+                    Would you like to evaluate the quality of your code? Submit it here: 
+                  </div>
+                  <input type="file" name="file" accept=".py">
+                <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="set_hidden_values()" id="problem_button" style="margin-top: 20px; margin-left: 15px">Submit Answer</button>
+    </form>
+  </div>
 </div>
 
 <script>

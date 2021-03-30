@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Roboto+Mono:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Roboto+Mono:wght@200&display=swap");
 
 * {
 	box-sizing: border-box;
@@ -185,7 +185,7 @@ button:hover {
   font-weight: 200;
   font-size: 30px;
   color: whitesmoke;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 #dataset{
@@ -193,4 +193,30 @@ button:hover {
   border-style: solid;
   border-width: 2px;
   border-color: #40c999;
+  padding: 10px 20px 10px 10px; 
+  margin-top: 10px;
+}
+
+#problem_button{
+  background-color: #40c999;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #40c999;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: whitesmoke;
+}
+
+.roboto{
+  font-family: 'Roboto Mono', monospace; 
+  font-weight: 200; 
+  color: whitesmoke;
+}
+
+#problem_container{
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
