@@ -115,7 +115,7 @@ def detailed_exercise_post(id,language):
     var = ChallengesStats.query.filter_by(challenges_id=challenge_id, programming_languages_id=language_id, users_id=user_id).first()
 
     if not var: # if the challenge was not started
-        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, tries=0, programming_languages_id=language_id)
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, tries=0, programming_languages_id=language_id, solved=False)
         db.add(var)
 
     if correct == True:
@@ -205,10 +205,11 @@ def background_process_test(challenge, language):
 
     # check if the entry existed already
     var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=challenge, programming_languages_id=language_id).first()
+
     if var: # if the entry exists (meaning user already started/tried the challenge before)
         var.start_date=ts
     else: # create the entry with the current timestamp as start_date
-        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id, tries=0)
+        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id, tries=0, solved=False)
         db.session.add(var)
 
 

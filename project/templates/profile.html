@@ -40,7 +40,9 @@
           {% endif %}
           User related stuff
         </h2>
-        {{ total_pending }}
+        You have {{ pending|length }} pending challenges.<br>
+        {{ pending[0].challenges.name }}
+
     </div>
 
 
