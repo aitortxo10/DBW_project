@@ -5,7 +5,6 @@ from .models import *
 from . import db
 from email_validator import validate_email, EmailNotValidError
 import datetime
-from pylint.lint import Run
 
 auth = Blueprint('auth', __name__)
 
@@ -22,7 +21,7 @@ def login_post():
     user=Users.query.filter_by(email=email).first()#Load the information related to the user
 
     if not user:
-        flash('User not registered, please go to sign up')
+        flash('User not registered, please sign up')
         return redirect(url_for('auth.login'))
     elif not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
         flash('Incorrect password, please try again')
@@ -80,40 +79,46 @@ def exercises():
 @auth.route('/detailed_exercise/<id>/<language>')
 @login_required
 def detailed_exercise(id, language):
-    # use info from the url instead of a request form
-    user_id=current_user.id
+    # get parametres from url
     id=id
-    language=language
+    language_id=ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     challenge=Challenges.query.filter_by(id=id).first()
-    Stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
-    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, Stats=Stats)
+    user_id = current_user.id
+
+    # check if the exercise was started before by the same user
+    stats = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id, programming_languages_id=language_id).first()
+
+    return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
 @auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
 def detailed_exercise_post(id, language):
-    # we have to get challenge id and programming language from URL
-    user_id = current_user.id
-    id=id
-    language=language
 
+    # obtain parametres such as current user and challenge and language
+    user_id = current_user.id
+    challenge_id = id
+    language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
+    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    # Check if user answer is right
     correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=id).first()
-    answer = request.form.get('answer')
-    correct = (correct_answer == answer)
+    user_answer = request.form.get('answer')
+
+    correct = (correct_answer == user_answer)
+
+    if var: # if it exists, update some of the stats
+        var.solved = correct
+        var.end_date=ts
+        var.tries += 1
+
+    else:
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=languge_id)
+
+
 
     if correct == True:
-        var = Users.query.with_entities(Users.name, Users.email).join(ChallengesStats).join(Challenges).first()
 
         time=datetime.datetime.now()
         ts = time.strftime('%Y-%m-%d %H:%M:%S')
-
-        # check if user has tried the challenge already
-        var = ChallengesStats.query.filter_by(challenges_id=id,users_id=user_id).first()
-
-        if var: # if it exists, update some of the stats
-            var.solved = correct
-            var.end_date=ts
-            var.tries += 1
-        else:
-            var = ChallengesStats(challenges_id=id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=1)
 
         start = datetime.datetime.strptime(var.start_date, '%Y-%m-%d %H:%M:%S')
         df=(time-start).total_seconds()
@@ -161,9 +166,6 @@ def detailed_exercise_post(id, language):
 
         score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
 
-        db.session.add(var)
-        db.session.commit()
-
         flash("Problem solved correctly")
         return redirect(url_for('exercises'))
 
@@ -172,21 +174,23 @@ def detailed_exercise_post(id, language):
         return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
 
 # background process happening without any refreshing
-@auth.route('/background_process_test')
-def background_process_test():
+@auth.route('/create_entry/<challenge>/<language>', methods=['GET'])
+def background_process_test(challenge, language):
 
+    #obtain current user id, a current time and programming language used
     user_id = current_user.id
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
+    challenge=int(challenge)
 
-    # we need to recover challenge and language id
-    var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=2, programming_languages_id=2).first()
-
+    # check if the entry existed already
+    var = ChallengesStats.query.filter_by(users_id=user_id, challenges_id=challenge, programming_languages_id=language_id).first()
     if var: # if the entry exists (meaning user already started/tried the challenge before)
-        if not var.start_date: # if start time was not set before, set it now
-            var.start_date = ts
+        var.start_date=ts
     else: # create the entry with the current timestamp as start_date
-        var = ChallengesStats(challenges_id=2,  users_id=user_id, start_date=ts, end_date=None, programming_languages_id=2)
+        var = ChallengesStats(challenges_id=challenge,  users_id=user_id, start_date=ts, programming_languages_id=language_id)
         db.session.add(var)
+
 
     db.session.commit()
     return "nothing"
@@ -195,4 +199,3 @@ def background_process_test():
 def test2():
     print("Test2")
     return "testing"
-

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Roboto+Mono:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Roboto+Mono:wght@200&display=swap");
 
 * {
 	box-sizing: border-box;
@@ -10,15 +10,9 @@ html{
 }
 
 body{
-  min-height: 100%;
-}
-
-.navbar {
-    -o-transition: all .6s;
-    -moz-transition: all .6s;
-    -webkit-transition: all .6s;
-    -ms-transition: all .6s;
-    transition: all .6s;
+  height: 100%;
+  background-color: #22222e;
+  color: whitesmoke;
 }
 
 #weblogo{
@@ -30,22 +24,18 @@ body{
     padding-left: 30px;
 }
 
-body{
-	background-color: #22222e;
-	color: whitesmoke;
-}
-
 a {
 	font-family: "Nunito", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	color: whitesmoke;
-	text-decoration: none;
+	text-decoration: none !important;;
 	margin-right: auto;
 }
 
-#general_body{
+#python_fill{
 	padding: 70px 0;
+  min-height: 100%;
 }
 
 #main-page{
@@ -69,6 +59,9 @@ a {
 
 .navbar-dark .navbar-nav {
     font-size: 15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+
     color: #fff;
     text-transform: uppercase;
 }
@@ -92,6 +85,14 @@ a {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.navbar {
+    -o-transition: all .6s;
+    -moz-transition: all .6s;
+    -webkit-transition: all .6s;
+    -ms-transition: all .6s;
+    transition: all .6s;
+}
  
 /*
 button{
@@ -112,28 +113,15 @@ button:hover {
 .footer {
 	position: fixed;
 	bottom: 0;
-	width: 100%;
+	min-width: 100%;
   padding: 20px;
   background: #343445;
+  text-align: right !important;
  }
-
-.footer > .container {
-	text-align: right;
-	padding-right: 15px;
-  	padding-left: 15px;
-}
-
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
-
 
 /* Colors */
 .bg-blue {
-  background-color:#7280b8; /*#2B3856 */
+  background-color:;
 }
 
 .bg-custom {
@@ -159,85 +147,50 @@ button:hover {
 .navbar .nav-item:hover .dropdown-menu{ display: block; }
 .navbar .nav-item .dropdown-menu{ margin-top:0; }
 
-body.my-login-page {
-  font-size: 14px;
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
 }
 
-.my-login-page .brand {
-  overflow: hidden;
-  margin: 40px auto;
+#heading {
+  background-color: #343445;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #40c999;
   box-shadow: 0 0 20px #40c999;
-  position: relative;
-  z-index: 1;
+  padding: 15px 30px 10px 30px; 
+  margin-bottom: 50px;
 }
 
-.my-login-page .brand img {
-  width: 100%;
-}
-
-.my-login-page .card-wrapper {
-  padding-top: 30px;
-  width: 400px;
-}
-
-.my-login-page .card {
-  background-color: #343445; 
-  border-color: transparent;
+#problem {
+  padding: 30px 25px 30px 25px; 
+  background-color: #343445;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #40c999;
   box-shadow: 0 0 20px #40c999;
 }
 
-.my-login-page .card.fat {
-  padding: 10px;
+#heading > .title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 45px;
+  color: whitesmoke;
 }
 
-.my-login-page .card .card-title {
+#problem > .statement {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 200;
+  font-size: 30px;
+  color: whitesmoke;
   margin-bottom: 30px;
 }
 
-.my-login-page .form-control {
-  border-width: 2.3px;
-}
-
-.my-login-page .form-group label {
-  width: 100%;
-}
-
-.my-login-page .field {
-  margin-bottom: 1rem;
-}
-
-.my-login-page .btn.btn-block {
-  padding: 12px 10px;
-}
-
-.my-login-page .footer {
-  margin: 40px 0;
-  color: #888;
-  text-align: center;
-}
-
-@media screen and (max-width: 425px) {
-  .my-login-page .card-wrapper {
-    width: 90%;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .my-login-page .card.fat {
-    padding: 0;
-  }
-
-  .my-login-page .card.fat .card-body {
-    padding: 15px;
-  }
-}
-
-.btn-primary.custom-btn {
+#dataset{
   background-color: #22222e;
-  border-color:#22222e;
-}
-
-a {
-    text-decoration: none !important;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #40c999;
 }

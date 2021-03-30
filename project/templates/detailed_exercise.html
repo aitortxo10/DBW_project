@@ -8,42 +8,51 @@
     </div>
 {% endif %}
 {% endwith %}
-<h1 class="title">
-  {{ challenge.name }}
-</h1>
-<h2>
-  {{ challenge.instructions }}
-</h2>
-
-<div class="container" id ="challenge_start">
-  <form>
-      <a href="#" id="test"><button class='btn btn-default' onclick="start_challengue()">Start the Challenge</button></a>
-  </form>
+<div class="container" id="heading">
+  <h1 class="title">
+    {{ challenge.name }}
+  </h1>
 </div>
 
-<div id="challenge" class="container" style="display: none;">
-
-  <h2>
-    {{challenge.test_data}}
+<div class="container" id="problem">
+  <h2 class="statement">
+    {{ challenge.instructions }}
   </h2>
-  <div id="hints" class="container">
-    <button onclick="display_hint()" class="btn btn-primary" id="start">Hint</button>
-    <div class="container" id="hidden_hint" style="display: none;">
-      <p> {{ challenge.hint }}</p>
-    </div>
 
-    <form method="POST" action="/detailed_exercise">
-        <div class="field">
-            <div class="control">
-                <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
-                <input type="file" name="file" accept=".py">
-                <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
+  <div class="container" id ="challenge_start">
+    <form>
+        <a href="#" id="test"><button class='btn btn-default' onclick="start_challenge()">Start the Challenge</button></a>
     </form>
   </div>
-<div>
+
+  <div id="challenge" class="container" style="display: none;">
+
+    Sample data
+    <div class="container" id="dataset">
+      <h2 style="font-family: 'Roboto Mono', monospace; font-weight: 200; font-size: 23px; color: whitesmoke;">
+        {{challenge.test_data}}
+      </h2>
+    </div>
+    <div id="hints" class="container">
+      <button onclick="display_hint()" class="btn btn-primary" id="start">Hint</button>
+      <div class="container" id="hidden_hint" style="display: none;">
+        <p> {{ challenge.hint }}</p>
+      </div>
+
+      <form method="POST" action="/detailed_exercise">
+          <div class="field">
+              <div class="control">
+                  <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here">
+                  <input type="file" name="file" accept=".py">
+                  <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
+              </div>
+          </div>
+          <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
+      </form>
+    </div>
+  <div>
+</div>
+
 <script>
   function display_hint(){
     var x = document.getElementById("hidden_hint");
@@ -66,7 +75,7 @@
 </script>
 
 <script>
-  function start_challengue(){
+  function start_challenge(){
     var x = document.getElementById("challenge");
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -74,8 +83,12 @@
     document.getElementById("challenge_start").style.display = 'none';
   }
 </script>
+<!-- If the challenge was already started, directly hide the start timer button -->
+{% if stats %}
+<script>start_challenge();</script>
+{% endif %}
 
-<!-- Two possible options for the start-time button -->
+<!-- Two possible options for the start-time button
 <script type=text/javascript>
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -84,11 +97,14 @@
     };
     request.open('POST', '/test2');
     request.send();
-</script>
+</script> -->
 <script type=text/javascript>
+    let challenge = JSON.parse('{{id | tojson }}');
+    let language = JSON.parse('{{language | tojson }}');
+
     $(function() {
       $('a#test').bind('click', function() {
-        $.getJSON($SCRIPT_ROOT + '/background_process_test',
+        $.getJSON($SCRIPT_ROOT + '/create_entry/'+ challenge +'/'+ language,
             function(data) {
           //do nothing with the JSON data comming from the Flask APP.
         });
