@@ -1,8 +1,9 @@
 Name ; GC content
 Instructions ; Calculate percentage of G or C nucleotides in a DNA sequence and provide the answer below with a 5-decimal precision.
+Mock_solution ; 0.33333
 Test_data ; AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
 Solution ; 0.41428    
 Hint ; Use a count function.
 Level ; 1
-Languages ; Python3.8,Perl5,R4.0.2,Test
-
+Languages ; Python3.8,Perl5,R4.0.2
+Categories ; Introduction

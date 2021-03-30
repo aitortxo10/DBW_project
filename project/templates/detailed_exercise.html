@@ -18,14 +18,15 @@
   <h2 class="statement">
     {{ challenge.instructions }}
   </h2>
-
+{% if not stats %}
   <div class="container" id ="challenge_start">
     <form>
         <a href="#" id="test"><button class='btn btn-default' onclick="start_challenge()">Start the Challenge</button></a>
     </form>
   </div>
+{% endif %}
 
-  <div id="challenge" class="container" style="display: none;">
+  <div id="challenge" class="container" {% if not stats %} style="display: none;" {% endif %}>
 
     Sample data
     <div class="container" id="dataset">

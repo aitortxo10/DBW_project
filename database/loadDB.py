@@ -21,6 +21,7 @@ connection.cursor().execute("SET FOREIGN_KEY_CHECKS=0")
 # loading challenges from the folder problems/
 sthProblems = "INSERT INTO challenges ({}) VALUES ({});"
 sthLP = "INSERT INTO languages_challenges VALUES ({});"
+sthCP = "INSERT INTO categories_challenges VALUES ({});"
 
 for problem in os.listdir("problems"):
     with open("problems/"+problem, 'r') as fh:
@@ -72,7 +73,22 @@ for problem in os.listdir("problems"):
 
             elif (column == "Categories"):
                 # this will occur after loading the challenge in the table and filling the languages_challenges table
-                pass
+                for cat in value.strip().split(","):
+                    print(cat)
+                    with connection.cursor() as c:
+                        com = "SELECT id FROM categories WHERE name = {};".format("'" + cat + "'")
+                        c.execute(com)
+                        cat_id = c.fetchone() # returns tuple with (id, name) or None if empty
+                        # if the cat    egory was not already in the categories table, load it
+                        if not cat_id:
+                            to_exec = "INSERT INTO categories (name) VALUES ({});".format("'" + cat + "'")
+                            c.execute(to_exec)
+                            cat_id = c.lastrowid
+                        else:
+                            cat_id = cat_id[0] # get the id from the tuple
+
+                        comm = sthCP.format("'" + str(cat_id) + "'," + "'" + str(c_id) + "'")
+                        c.execute(comm)
 
             else:
                 # construct a single string with all the column, values in the same order
