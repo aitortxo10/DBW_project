@@ -110,7 +110,7 @@ def detailed_exercise_post(id,language):
     var = ChallengesStats.query.filter_by(challenges_id=challenge_id, programming_languages_id=language_id, users_id=user_id).first()
 
     if not var:
-        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=languge_id)
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=language_id)
 
     if correct == True:
 
