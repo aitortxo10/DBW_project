@@ -16,5 +16,11 @@ def profile():
     user_id = current_user.id
     # load user statistics
     last_login = Users.query.with_entities(Users.last_login).filter_by(id=user_id).first()[0]
+    solved = ChallengesStats.query.with_entities(ChallengesStats.solved, Challenges.level).filter_by(users_id=user_id, solved=True).join(Challenges).all()
+    total_solved = len(solved)
+    total_score = sum(chall.level for chall in solved)
+    pending = db.session.query(ChallengesStats).filter(ChallengesStats.users_id==user_id, ChallengesStats.solved!=True).all()
 
-    return render_template('profile.html', name=current_user.name, last_login=last_login)
+    total_pending = len(pending)
+
+    return render_template('profile.html', name=current_user.name, last_login=last_login, total_solved = total_solved, total_score=total_score, total_pending=total_pending)

@@ -1,0 +1,12 @@
+#sidebar{
+	width: 25%;
+	height: 100%;
+    border: 1px solid green;
+    position: sticky;
+    float: left;
+    box-shadow: 0 0 20px #40c999
+}
+
+#mainbox{
+    float: right;
+}
