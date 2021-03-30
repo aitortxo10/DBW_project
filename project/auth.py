@@ -100,7 +100,7 @@ def detailed_exercise_post(id,language):
 
     # obtain parametres such as current user and challenge and language
     user_id = current_user.id
-    challenge_id=id
+    challenge_id=int(id)
     language=language
 
     language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
@@ -186,7 +186,7 @@ def detailed_exercise_post(id,language):
 
     else:
         db.session.commit()
-        flash((var.start_date))
+        flash("Incorrect Answer, please try again.")
         challenge=Challenges.query.filter_by(id=challenge_id).first()
 
         # check if the exercise was started before by the same user
