@@ -52,6 +52,7 @@ class Users(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(256))
     name = db.Column(db.String(1000))
+    last_login = db.Column(db.DateTime)
     age = db.Column(db.Integer)
     country = db.Column(db.String(45))
     background = db.Column(db.String(45))

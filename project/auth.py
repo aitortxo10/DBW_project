@@ -23,12 +23,15 @@ def login_post():
     if not user:
         flash('User not registered, please sign up')
         return redirect(url_for('auth.login'))
+
     elif not check_password_hash(user.password,password): #If the password or the email is not correct, flash an error message and redirectonce more to the login page
         flash('Incorrect password, please try again')
         return redirect(url_for('auth.login'))
 
 
     login_user(user, remember=remember)
+    user.last_login = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    db.session.commit()
     return redirect(url_for('main.profile')) #If the login info is correct, load the profile of the user
 
 @auth.route('/signup/')
