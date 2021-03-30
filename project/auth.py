@@ -94,36 +94,39 @@ def detailed_exercise(id, language):
     return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
 @auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
-def detailed_exercise_post(id, language):
+def detailed_exercise_post(id,language):
 
     # obtain parametres such as current user and challenge and language
     user_id = current_user.id
-    challenge_id = id
+    challenge_id=id
+    language=language
+
     language_id = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.id).filter_by(name=language).first()[0]
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     # Check if user answer is right
-    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=id).first()
+    correct_answer = Challenges.query.with_entities(Challenges.solution).filter_by(id=challenge_id).first()[0]
     user_answer = request.form.get('answer')
 
-    correct = (correct_answer == user_answer)
+    correct = (str(correct_answer) == str(user_answer))
 
-    if var: # if it exists, update some of the stats
-        var.solved = correct
-        var.end_date=ts
-        var.tries += 1
+    var = ChallengesStats.query.filter_by(challenges_id=challenge_id, programming_languages_id=language_id, users_id=user_id).first()
 
-    else:
-        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=languge_id)
-
-
+    if not var:
+        var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, end_date =ts if correct else None, tries=1, programming_languages_id=language_id)
 
     if correct == True:
 
+        var.tries+=1
         time=datetime.datetime.now()
         ts = time.strftime('%Y-%m-%d %H:%M:%S')
 
-        start = datetime.datetime.strptime(var.start_date, '%Y-%m-%d %H:%M:%S')
+        if var: # if it exists, update some of the stats
+            var.solved = correct
+            var.end_date=ts
+
+        #start = datetime.datetime.strptime(var.start_date, '%Y-%m-%d %H:%M:%S')
+        start=var.start_date
         df=(time-start).total_seconds()
         reference=df/172800  #Two days should be the standard to solve a problem
 
@@ -145,35 +148,43 @@ def detailed_exercise_post(id, language):
         else:
             pen_tries = 0.5*var.tries
 
-        hints=request.form.get("hints")
+        hints=int(request.form.get("hints"))
 
-        uploaded_file=request.files['files']
-        if uploaded_file:
-            results = Run([uploaded_file], do_exit=False)
-            mark=results.linter.stats['global_note']
+        if language == "Python3.8":
 
-            if mark <=0:
-                pen_pyl=2.5
-            elif mark <=2:
-                pen_pyl=2
-            elif mark <=4:
-                pen_pyl=1.5
-            elif mark <=6:
-                pen_pyl=1
-            elif mark <=8:
-                pen_pyl=0.5
+            uploaded_file=request.files['files']
+            if uploaded_file:
+                results = Run([uploaded_file], do_exit=False)
+                mark=results.linter.stats['global_note']
+
+                if mark <=0:
+                    pen_pyl=2.5
+                elif mark <=2:
+                    pen_pyl=2
+                elif mark <=4:
+                    pen_pyl=1.5
+                elif mark <=6:
+                    pen_pyl=1
+                elif mark <=8:
+                    pen_pyl=0.5
+                else:
+                    pen_pyl=0
             else:
-                pen_pyl=0
+                pen_pyl=2.5
+
+            score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
+
         else:
-            pen_pyl=2.5
+            score=10*(7.5 - 2.5*hints - pen_tries - pen_time -pen_pyl)/7.5
 
-        score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
-
+        db.session.commit()
         flash("Problem solved correctly")
-        return redirect(url_for('exercises'))
+        return redirect(url_for('auth.exercises'))
 
     else:
-        flash("Incorrect Answer")
+        db.session.commit()
+        flash((var.start_date))
+        challenge=Challenges.query.filter_by(id=challenge_id).first()
         return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language)
 
 # background process happening without any refreshing

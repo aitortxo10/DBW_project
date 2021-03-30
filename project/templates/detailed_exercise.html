@@ -40,17 +40,17 @@
         <p> {{ challenge.hint }}</p>
       </div>
     </div>
-      <form method="POST" action="/detailed_exercise">
+      <form method="POST" action="/detailed_exercise/{{id}}/{{language}}"  enctype = "multipart/form-data">
           <div class="field">
               <div class="control">
                   <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required>
                   {% if language=="Python3.8" %}
-                  <input type="file" name="file" accept=".py">
+                  <input type="file" name="files" accept=".py">
                   {% endif %}
-                  <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
+                  <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value='0'>
               </div>
           </div>
-          <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
+          <button class="btn btn-primary" onmouseover="set_hidden_values();"  id="log_button">Submit Answer</button>
       </form>
     </div>
   </div>
