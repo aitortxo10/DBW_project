@@ -55,7 +55,7 @@
 
     <div class="container" id="problem_container" style="margin-bottom: 0">
       <a style="font-size: 20px; font-weight: 600">Your Solution</a>
-      <form method="POST" action="/detailed_exercise">
+      <form method="POST" action="/detailed_exercise{{id}}/{{language}}"  enctype = "multipart/form-data">
           <div class="control">
               <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
               {% if language=="Python3.8" %}
