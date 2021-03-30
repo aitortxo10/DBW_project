@@ -38,12 +38,14 @@
       <div class="container" id="hidden_hint" style="display: none;">
         <p> {{ challenge.hint }}</p>
       </div>
-
+    </div>
       <form method="POST" action="/detailed_exercise">
           <div class="field">
               <div class="control">
                   <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required>
+                  {% if language=="Python3.8" %}
                   <input type="file" name="file" accept=".py">
+                  {% endif %}
                   <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
               </div>
           </div>
