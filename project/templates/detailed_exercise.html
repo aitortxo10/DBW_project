@@ -21,58 +21,62 @@
 {% if not stats %}
   <div class="container" id ="challenge_start">
     <form>
-        <a href="#" id="test"><button class='btn btn-default' onclick="start_challenge()">Start the Challenge</button></a>
+        <a href="#" id="test"><button class='btn btn-primary' onclick="start_challenge()">Start the Challenge</button></a>
     </form>
   </div>
 {% endif %}
 
   <div id="challenge" class="container" {% if not stats %} style="display: none;" {% endif %}>
 
-    Sample data
-    <div class="container" id="dataset">
-      <h2 style="font-family: 'Roboto Mono', monospace; font-weight: 200; font-size: 23px; color: whitesmoke;">
-        {{challenge.test_data}}
-      </h2>
-    </div>
     <div id="hints" class="container">
-      <button onclick="display_hint()" class="btn btn-primary" id="start">Hint</button>
+      <button onclick="display_hint()" class="btn btn-primary" id="problem_button">Need some help?</button>
       <div class="container" id="hidden_hint" style="display: none;">
         <p> {{ challenge.hint }}</p>
       </div>
     </div>
+
+    <div class="container" id="problem_container">
+      <a style="font-size: 20px; font-weight: 600">Sample Output</a>
+      <div class="container" id="dataset">
+        <a class="roboto" style="font-size: 23px; word-break: break-all">
+          {{challenge.mock_solution}}
+        </a>
+      </div>
+    </div>
+
+    <div class="container" id="problem_container">
+      <a style="font-size: 20px; font-weight: 600">Data</a>
+      <div class="container" id="dataset">
+        <a class="roboto" style="font-size: 23px; word-break: break-all">
+          {{challenge.test_data}}
+        </a>
+      </div>
+    </div>
+
+    <div class="container" id="problem_container" style="margin-bottom: 0">
+      <a style="font-size: 20px; font-weight: 600">Your Solution</a>
       <form method="POST" action="/detailed_exercise">
-          <div class="field">
-              <div class="control">
-                  <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required>
-                  {% if language=="Python3.8" %}
-                  <input type="file" name="file" accept=".py">
-                  {% endif %}
-                  <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
-              </div>
+          <div class="control">
+              <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
+              {% if language=="Python3.8" %}
+              <div style="font-family: 'Nunito', sans-serif; font-weight: 400; padding: 20px 0 10px 15px; font-size: 18px">Would you like to evaluate the quality of your code? Submit it here: </div>
+              <input style="padding-left: 15px" type="file" name="file" accept=".py">
+              {% endif %}
+              <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value=''>
           </div>
-          <button class="btn btn-primary" onclick="set_hidden_values()" id="log_button">Submit Answer</button>
+          <button class="btn btn-primary" id="problem_button" style="margin-top: 35px; margin-left: 15px">Submit Answer</button>
       </form>
     </div>
   </div>
-</div>
+
+</div>  
 
 <script>
   function display_hint(){
     var x = document.getElementById("hidden_hint");
     if (x.style.display === "none") {
       x.style.display = "block";
-    }
-  }
-</script>
-
-<script>
-  function set_hidden_values(){
-    var x = document.getElementById("hidden_hint");
-    if (x.style.display === "none") {
-      document.getElementById("hints").value=0
-    }
-    else{
-      document.getElementById("hints").value=1
+      document.getElementById("hints").value=1;
     }
   }
 </script>

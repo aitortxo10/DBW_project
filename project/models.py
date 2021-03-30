@@ -67,6 +67,7 @@ class Challenges(db.Model):
     solution = db.Column(db.Text)
     hint = db.Column(db.Text)
     level = db.Column(db.Integer)
+    mock_solution = db.Column(db.Text)
 
     # one-to-many ChallengesStats <-> Challenges
     users = relationship('ChallengesStats', back_populates='challenges')

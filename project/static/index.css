@@ -34,7 +34,7 @@ a {
 }
 
 #python_fill{
-  padding: 70px 0;
+  padding: 60px 0;
   min-height: 100%;
 }
 
@@ -111,7 +111,7 @@ button:hover {
 
 
 .footer {
-  position: fixed;
+
   bottom: 0;
   min-width: 100%;
   padding: 20px;
@@ -176,14 +176,14 @@ button:hover {
 #heading > .title {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
-  font-size: 45px;
+  font-size: 40px;
   color: whitesmoke;
 }
 
 #problem > .statement {
   font-family: 'Roboto Mono', monospace;
   font-weight: 200;
-  font-size: 30px;
+  font-size: 25px;
   color: whitesmoke;
   margin-bottom: 25px;
 }
@@ -219,4 +219,12 @@ button:hover {
   padding-right: 0;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+#hidden_hint{
+  margin-top: 10px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: whitesmoke;
 }
