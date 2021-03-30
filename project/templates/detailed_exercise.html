@@ -21,7 +21,7 @@
 {% if not stats %}
   <div class="container" id ="challenge_start">
     <form>
-        <a href="#" id="test"><button class='btn btn-primary' onclick="start_challenge()">Start the Challenge</button></a>
+        <a href="#" id="test"><button id="problem_button" class='btn btn-primary' onclick="start_challenge()">Start the Challenge</button></a>
     </form>
   </div>
 {% endif %}
@@ -55,7 +55,7 @@
 
     <div class="container" id="problem_container" style="margin-bottom: 0">
       <a style="font-size: 20px; font-weight: 600">Your Solution</a>
-      <form method="POST" action="/detailed_exercise{{id}}/{{language}}"  enctype = "multipart/form-data">
+      <form method="POST" action="/detailed_exercise/{{id}}/{{language}}"  enctype = "multipart/form-data">
           <div class="control">
               <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
               {% if language=="Python3.8" %}
