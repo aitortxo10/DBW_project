@@ -1,13 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
+<h1 class="title" align="center">
   Welcome, {{name}}!
 </h1>
-<h2>
-  {% if last_login %}
-  Last time you visited us was {{ last_login }}.<br>
-  {% endif %}
-  User related stuff
-</h2>
+<div class="row">
+    <div id="sidebar" class="col-sm-4">
+        Hello
+        <br>
+        <table style="width: 100%">
+            <tbody>
+                <td style="border-bottom: 1px solid white">
+                    Solved challenges:<br>
+                    {{ total_solved }}
+                </td>
+                <td style="border-bottom: 1px solid white">
+                    Personal score:<br>
+                    {{ total_score }}
+
+
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+    <div id="mainbox" class="col-lg-8">
+
+        <h2>
+          {% if last_login %}
+          Last time you visited us was {{ last_login }}.<br>
+          {% endif %}
+          User related stuff
+        </h2>
+        {{ total_pending }}
+    </div>
+
+
+</div>
 {% endblock %}
