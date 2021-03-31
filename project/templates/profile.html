@@ -4,38 +4,32 @@
 
 <div class="container-fluid" id="profile_fill">
 
+      <div id="sidebar" class="column">
+        <div id="content_column" class="column">
 
-      <div id="sidebar" class="col-sm-4">
-
-        <div class="responsive-container">
-          <div class="dummy"></div>
-
-            <div class="img-container">
-              <div class="centerer"></div>
-              <img src="{{ url_for('static', filename='profile.png') }}" alt="" />
+          <div class="img-container">
+            <img src="{{ url_for('static', filename='profile.png') }}" alt=""/>
           </div>
+
+          <h2>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            Last time you visited us was {{ messages[0] }}.<br>
+            {% endif %}
+            {% endwith%}
+            User related stuff
+          </h2>
         </div>
-
-        <h2>
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-          Last time you visited us was {{ messages[0] }}.<br>
-          {% endif %}
-          {% endwith%}
-          User related stuff
-        </h2>
-        You have {{ total_pending|length }} pending challenges.<br>
-
-        {% for pen in total_pending %}
-            <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=pen[0].challenges.id, language=pen[1]) }}" role="button">
-                {{ pen[0].challenges.name }}
-            </a>
-        {% endfor %}
-
       </div>
 
-      <div id="mainbox" class="col-lg-8">
+      <div id="mainbox" class="column">
+          You have {{ total_pending|length }} pending challenges.<br>
 
+          {% for pen in total_pending %}
+              <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=pen[0].challenges.id, language=pen[1]) }}" role="button">
+                  {{ pen[0].challenges.name }}
+              </a>
+          {% endfor %}
         Hello
         <br>
         <table style="width: 100%">
@@ -56,12 +50,15 @@
         <br>
         <br>
 
-      </div>
-  {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
-    <canvas id="solved_propotrtion" width="600" height="400"></canvas>
-  {% endif %}
-  <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
+        <div class="container" style="max-height: 20% ">
+          {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
+            <canvas id="solved_propotrtion" width="10" height="3"></canvas>
+          {% endif %}
+        </div>
 
+      </div>
+  
+  <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
 
   <script>
     var chart_canvas = document.getElementById("solved_propotrtion");
@@ -76,15 +73,17 @@
       datasets: [
         {
           data: [{{python_data}},{{perl_data}},{{r_data}}],
-          backgroundColor:["#ef8a62","#f7f7f7","#67a9cf"]
+          backgroundColor:["#40c999","#fab24d","#ed82e4"]
         }
-      ]};
+      ],
+    };
 
     var chartOptions = {
       rotation: -Math.PI,
       circumference: Math.PI,
-      legend:{position:'bottom'},
-
+      legend:{position:'bottom',
+              labels: {fontFamily: "'Roboto Mono', monospace", fontColor: 'white'}, 
+      },
     };
 
     var doughnut_chart =new Chart(chart_canvas, {
