@@ -21,6 +21,12 @@ def profile():
     total_score = sum(chall.level for chall in solved)
     pending = ChallengesStats.query.filter_by(users_id=user_id, solved=False).all()
 
+    total_pending = []
+    # obtain the language name of the pending challenges in a tuple
+    for pen in pending:
+        lang_name = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.name).filter_by(id=pen.programming_languages_id).first()[0]
+        total_pending.append((pen, lang_name))
+
     pending_chall = pending[0]
 
-    return render_template('profile.html', name=current_user.name, last_login=last_login, total_solved = total_solved, total_score=total_score, pending=pending)
+    return render_template('profile.html', name=current_user.name, last_login=last_login, total_solved = total_solved, total_score=total_score, total_pending=total_pending)
