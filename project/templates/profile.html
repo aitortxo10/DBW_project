@@ -48,9 +48,9 @@
 
 
     </div>
-
-<canvas id="solved_propotrtion" width="600" height="400"></canvas>
-
+{% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
+  <canvas id="solved_propotrtion" width="600" height="400"></canvas>
+{% endif %}
 <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
 
 <script>

@@ -11,6 +11,7 @@
   <thead>
     <th scope="col">Challenge</th>
     <th scope="col">Difficulty</th>
+    <th scope="col">Highest Score</th>
     <th scope="col">Go to challenge</th>
     <th scope="col"></th>
     <th scope="col"></th>
@@ -22,6 +23,14 @@
         <td>{{ item.name}}</td>
         <td>{{ item.level }}</td>
         {% if current_user.is_authenticated %}
+
+          {% if not max_scores[loop.index0] %}
+          <td> Not available </td>
+
+          {% else %}
+          <td> {{ max_scores[loop.index0] }}
+          {% endif %}
+
         {% for language in item.languages %}
             <td>
                 <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}

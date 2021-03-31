@@ -79,7 +79,33 @@ def signup_post():
 def exercises():
     exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).order_by(Challenges.level)
 
-    return render_template('exercises.html', exercise_list=exercise_list)
+    if current_user.is_authenticated:
+        stats=ChallengesStats.query.filter_by(users_id=current_user.id).order_by(ChallengesStats.challenges_id).all()
+
+        id=""
+        score_list=[]
+        max_scores=[]
+
+        for stat in stats:
+            if not id:
+                id=stat.challenges_id
+                if stat.score:
+                    score_list.append(int(stat.score))
+            else:
+                if not id == stat.challenges_id:
+                    if score_list:
+                        max_scores.append(max(score_list))
+                    score_list=[]
+                else:
+                    if stat.score:
+                        score_list.append(int(stat.score))
+        if score_list:
+            max_scores.append(max(score_list))
+
+        return render_template('exercises.html', exercise_list=exercise_list, max_scores=max_scores)
+
+    else:
+        return render_template('exercises.html', exercise_list=exercise_list)
 
 @auth.route('/detailed_exercise/<id>/<language>')
 @login_required
