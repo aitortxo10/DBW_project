@@ -1,0 +1,9 @@
+Name ; Protein Sequence Summary
+Instructions ; Given a protein FASTA file, output the identifier, first 10 aminoacids, last 5 aminoacids and the absolute frequency of the aminoacids found in the protein (aminoacidsnot present in the protein should not be present in the output). Fields must be tab-separated.
+Mock_solution ; Prot1 EFTRPTSTWS  RWSPD E:1,F:1,T:5,R:3,P:2,S:6,W:2,A:3,L:1,M:1,D:1
+Test_data ; >PROTX\nRNDAMQEGJLFFPSWWWXVYPSTFFNNJJKJIQRCDNFPSTWQARN
+Solution ; ProtX  RNDAMQEGJL  WQARN R:3,N:5,D:2,A:2,M:1,Q:3,E:1,G:1,J:4,L:1,F:5,P:3,S:3,W:4,X:1,V:1,Y:1,T:2,K:1,I:1,C:1
+Hint ; A dictionary (or similar) can be used to store unique aminoacids, were the aminoacid is the key and the value the count
+Level ; 4
+Languages ; Python3.8,Perl5,R4.0.2
+Categories ; Introduction
