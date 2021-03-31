@@ -33,8 +33,12 @@ a {
   margin-right: auto;
 }
 
-#python_fill{
-  padding: 60px 0;
+#content_fill{
+  padding: 60px 0 60px 0;
+  min-height: 100%;
+}
+
+#profile_fill{
   min-height: 100%;
 }
 
@@ -227,4 +231,41 @@ button:hover {
   font-weight: 400;
   font-size: 20px;
   color: whitesmoke;
+}
+
+.responsive-container {
+    position: relative;
+    max-width: 220px;
+    max-height: 220px;
+    border: 1px solid black;
+}
+
+.dummy {
+    padding-top: 100%; /* forces 1:1 aspect ratio */
+}
+
+.img-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #343445;
+    text-align:center; /* Align center inline elements */
+    font: 0/0 a;
+    border-radius: 50%;
+}
+
+.img-container .centerer {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.img-container img {
+    max-width: 200px;
+    max-height: 200px;
+    vertical-align: middle;
+    display: inline-block;
 }

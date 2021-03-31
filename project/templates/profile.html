@@ -1,34 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title" align="center">
-  Welcome, {{name}}!
-</h1>
 
-<div class="row">
-    <div id="sidebar" class="col-sm-4">
-        Hello
-        <br>
-        <table style="width: 100%">
-            <tbody>
-                <td style="border-bottom: 1px solid white">
-                    Solved challenges:<br>
-                    {{ total_solved }}
-                </td>
-                <td style="border-bottom: 1px solid white">
-                    Personal score:<br>
-                    {{ total_score }}
+<div class="container-fluid" id="profile_fill">
 
 
-            </tbody>
-        </table>
-        <br>
-        <br>
-        <br>
-        <br>
+      <div id="sidebar" class="col-sm-4">
 
-    </div>
-    <div id="mainbox" class="col-lg-8">
+        <div class="responsive-container">
+          <div class="dummy"></div>
+
+            <div class="img-container">
+              <div class="centerer"></div>
+              <img src="{{ url_for('static', filename='profile.png') }}" alt="" />
+          </div>
+        </div>
 
         <h2>
           {% with messages = get_flashed_messages() %}
@@ -46,44 +32,68 @@
             </a>
         {% endfor %}
 
+      </div>
 
-    </div>
-{% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
-  <canvas id="solved_propotrtion" width="600" height="400"></canvas>
-{% endif %}
-<script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
+      <div id="mainbox" class="col-lg-8">
 
-<script>
-  var chart_canvas = document.getElementById("solved_propotrtion");
-  Chart.defaults.global.defaultFontFamily = "Lato";
-  Chart.defaults.global.defaultFontSize = 18;
+        Hello
+        <br>
+        <table style="width: 100%">
+            <tbody>
+                <td style="border-bottom: 1px solid white">
+                    Solved challenges:<br>
+                    {{ total_solved }}
+                </td>
+                <td style="border-bottom: 1px solid white">
+                    Personal score:<br>
+                    {{ total_score }}
+                </td>
 
-  var chart_data = {
-    labels: ["Python",
-            "Perl",
-            "R"
-    ],
-    datasets: [
-      {
-        data: [{{python_data}},{{perl_data}},{{r_data}}],
-        backgroundColor:["#ef8a62","#f7f7f7","#67a9cf"]
-      }
-    ]};
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
 
-  var chartOptions = {
-    rotation: -Math.PI,
-    circumference: Math.PI,
-    legend:{position:'bottom'},
+      </div>
+  {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
+    <canvas id="solved_propotrtion" width="600" height="400"></canvas>
+  {% endif %}
+  <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
 
-  };
 
-  var doughnut_chart =new Chart(chart_canvas, {
-    type: 'doughnut',
-    data: chart_data,
-    options: chartOptions
-  });
-</script>
+  <script>
+    var chart_canvas = document.getElementById("solved_propotrtion");
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    var chart_data = {
+      labels: ["Python",
+              "Perl",
+              "R"
+      ],
+      datasets: [
+        {
+          data: [{{python_data}},{{perl_data}},{{r_data}}],
+          backgroundColor:["#ef8a62","#f7f7f7","#67a9cf"]
+        }
+      ]};
+
+    var chartOptions = {
+      rotation: -Math.PI,
+      circumference: Math.PI,
+      legend:{position:'bottom'},
+
+    };
+
+    var doughnut_chart =new Chart(chart_canvas, {
+      type: 'doughnut',
+      data: chart_data,
+      options: chartOptions
+    });
+  </script>
+
 </div>
-
 
 {% endblock %}
