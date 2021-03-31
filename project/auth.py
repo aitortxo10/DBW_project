@@ -216,8 +216,3 @@ def background_process_test(challenge, language):
 
     db.session.commit()
     return "nothing"
-
-@auth.route('/test2', methods=['POST'])
-def test2():
-    print("Test2")
-    return "testing"
