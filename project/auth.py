@@ -118,9 +118,10 @@ def detailed_exercise_post(id,language):
         var = ChallengesStats(challenges_id=challenge_id,  users_id=user_id, start_date=ts, tries=0, programming_languages_id=language_id, solved=False)
         db.add(var)
 
+    var.tries+=1
+    
     if correct == True:
 
-        var.tries+=1
         time=datetime.datetime.now()
         ts = time.strftime('%Y-%m-%d %H:%M:%S')
 
