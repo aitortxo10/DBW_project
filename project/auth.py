@@ -79,6 +79,16 @@ def signup_post():
 def exercises():
     exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).order_by(Challenges.level)
 
+    categories_list = Categories.query.with_entities(Categories.id, Categories.name).all()
+
+    tab_categories = {}
+    for cat in categories_list:
+        tab_categories[cat.name] = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).join(categories_challenges).join(Categories).filter(Categories.id==cat.id).order_by(Challenges.level)
+
+    # hard-coding the results of category Introduction
+    introduction_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).join(categories_challenges).join(Categories).filter(Categories.id==1).order_by(Challenges.level)
+
+
     if current_user.is_authenticated:
         stats=ChallengesStats.query.filter_by(users_id=current_user.id).order_by(ChallengesStats.challenges_id).all()
 
@@ -106,10 +116,10 @@ def exercises():
         if score_list:
             max_scores[id]=max(score_list)
 
-        return render_template('exercises.html', exercise_list=exercise_list, max_scores=max_scores)
+        return render_template('exercises.html', exercise_list=exercise_list, max_scores=max_scores, tab_categories=tab_categories)
 
     else:
-        return render_template('exercises.html', exercise_list=exercise_list)
+        return render_template('exercises.html', exercise_list=exercise_list, tab_categories=tab_categories)
 
 @auth.route('/detailed_exercise/<id>/<language>')
 @login_required
