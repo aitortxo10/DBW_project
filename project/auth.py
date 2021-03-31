@@ -90,7 +90,7 @@ def exercises():
             if not id:
                 id=stat.challenges_id
                 if stat.score:
-                    score_list.append(int(stat.score))
+                    score_list.append(stat.score)
 
             else:
                 if not id == stat.challenges_id:
@@ -98,11 +98,11 @@ def exercises():
                         max_scores[id]=max(score_list)
                         score_list=[]
                     if stat.score:
-                        score_list.append(int(stat.score))
+                        score_list.append(stat.score)
                     id=stat.challenges_id
                 else:
                     if stat.score:
-                        score_list.append(int(stat.score))
+                        score_list.append(stat.score)
         if score_list:
             max_scores[id]=max(score_list)
 

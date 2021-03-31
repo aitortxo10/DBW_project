@@ -11,7 +11,9 @@
   <thead>
     <th scope="col">Challenge</th>
     <th scope="col">Difficulty</th>
+    {% if current_user.is_authenticated %}
     <th scope="col">Highest Score</th>
+    {% endif %}
     <th scope="col">Go to challenge</th>
     <th scope="col"></th>
     <th scope="col"></th>
