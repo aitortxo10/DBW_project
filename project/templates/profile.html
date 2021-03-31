@@ -39,7 +39,6 @@
           User related stuff
         </h2>
         You have {{ total_pending|length }} pending challenges.<br>
-        {{ total_pending[0][0].challenges.name }}
 
         {% for pen in total_pending %}
             <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=pen[0].challenges.id, language=pen[1]) }}" role="button">
