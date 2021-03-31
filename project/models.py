@@ -39,6 +39,7 @@ class ChallengesStats(db.Model):
     tries = db.Column(db.Integer)
     solved = db.Column(db.Boolean)
     programming_languages_id = db.Column(db.Integer, db.ForeignKey('programming_languages.id'), primary_key=True)
+    score = db.Column(db.Float)
 
     # establishing many-to-many relationship Users <-> Challenges
     challenges = relationship("Challenges", back_populates="users")

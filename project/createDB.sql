@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`challenges_stats` (
   `tries` INT NULL,
   `solved` TINYINT(1) NULL,
   `programming_languages_id` INT NOT NULL,
+  `score` FLOAT NULL,
   PRIMARY KEY (`challenges_id`, `users_id`, `programming_languages_id`),
   INDEX `fk_Challenge_has_User_User1_idx` (`users_id` ASC) VISIBLE,
   INDEX `fk_Challenge_has_User_Challenge1_idx` (`challenges_id` ASC) VISIBLE,

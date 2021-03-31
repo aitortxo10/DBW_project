@@ -119,7 +119,7 @@ def detailed_exercise_post(id,language):
         db.add(var)
 
     var.tries+=1
-    
+
     if correct == True:
 
         time=datetime.datetime.now()
@@ -176,10 +176,10 @@ def detailed_exercise_post(id,language):
             else:
                 pen_pyl=2.5
 
-            score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
+            var.score=10 - 2.5*hints - pen_tries - pen_time -pen_pyl
 
         else:
-            score=10*(7.5 - 2.5*hints - pen_tries - pen_time)/7.5
+            var.score=((7.5 - 2.5*hints - pen_tries - pen_time)/7.5)*10
 
         db.session.commit()
         flash("Problem solved correctly")
