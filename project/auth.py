@@ -90,7 +90,7 @@ def exercises():
             if not id:
                 id=stat.challenges_id
                 if stat.score:
-                    score_list.append(eval(stat.score))
+                    score_list.append(stat.score)
 
             else:
                 if not id == stat.challenges_id:
