@@ -91,14 +91,17 @@ def exercises():
                 id=stat.challenges_id
                 if stat.score:
                     score_list.append(int(stat.score))
+                else:
+                    score_list.append(-1)       #Default value for the NA due to not being solved
             else:
                 if not id == stat.challenges_id:
-                    if score_list:
-                        max_scores.append(max(score_list))
+                    max_scores.append(max(score_list))
                     score_list=[]
                 else:
                     if stat.score:
                         score_list.append(int(stat.score))
+                    else:
+                        score_list.append(-1)
         if score_list:
             max_scores.append(max(score_list))
 
