@@ -1,0 +1,9 @@
+Name ; Position in sequence
+Instructions ; Find the starting position of the GAG trinucleotide in a given sequence. If it appears more than once, provide the latest position.
+Mock_solution ; 13
+Test_data ; AGCTTTTCATTCTGAGTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+Solution ; 54
+Hint ; The genome is not 0-based!
+Level ; 3
+Languages ; Python3.8,Perl5,R4.0.2
+Categories ; Introduction,DNA

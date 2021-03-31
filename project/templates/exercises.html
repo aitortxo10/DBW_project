@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container" id="content_fill">
   {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -8,21 +9,31 @@
       </div>
   {% endif %}
   {% endwith %}
-  <table class="table">
-    <thead>
-      <th scope="col">Challenge</th>
-      <th scope="col">Difficulty</th>
-      <th scope="col">Go to challenge</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
+   <table class="table">
+     <thead>
+        <th scope="col">Challenge</th>
+        <th scope="col">Difficulty</th>
+        {% if current_user.is_authenticated %}
+        <th scope="col">Highest Score</th>
+        {% endif %}
+        <th scope="col">Go to challenge</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+        {% for item in exercise_list %}
+          <tr>
+            <td>{{ item.name}}</td>
+            <td>{{ item.level }}</td>
+            {% if current_user.is_authenticated %}
 
-    </thead>
-    <tbody>
-      {% for item in exercise_list %}
-        <tr>
-          <td>{{ item.name}}</td>
-          <td>{{ item.level }}</td>
-          {% if current_user.is_authenticated %}
+            {% if not max_scores[item.id] %}
+            <td> Not Available</td>
+
+            {% else %}
+            <td> {{ max_scores[item.id] }}</td>
+            {% endif %}
+
           {% for language in item.languages %}
               <td>
                   <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
