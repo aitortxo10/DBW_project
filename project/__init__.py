@@ -14,7 +14,7 @@ def create_app():
     #We need to set ut a key for the flask login function
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = flask_key
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/mydb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://arnau:Contrasenya@localhost/mydb'
 
     db.init_app(app)
 

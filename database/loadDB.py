@@ -4,8 +4,8 @@ import os
 # Connect to database
 database = "mydb"
 host = "localhost"
-user = "root"
-passwd = "password"
+user = "arnau"
+passwd = "Contrasenya"
 
 connection = pymysql.connect(host='localhost',
                 user=user,
@@ -49,6 +49,7 @@ for problem in os.listdir("problems"):
 
                 # get all the languages that the problem can be solved in
                 for lang in value.strip().split(","):
+                    lang = lang.strip()
                     print(lang)
                     # check if language is in programming_languages table or not
                     with connection.cursor() as c:
@@ -74,6 +75,7 @@ for problem in os.listdir("problems"):
             elif (column == "Categories"):
                 # this will occur after loading the challenge in the table and filling the languages_challenges table
                 for cat in value.strip().split(","):
+                    cat = cat.strip()
                     print(cat)
                     with connection.cursor() as c:
                         com = "SELECT id FROM categories WHERE name = {};".format("'" + cat + "'")
