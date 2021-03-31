@@ -27,7 +27,6 @@ def profile():
         lang_name = ProgrammingLanguages.query.with_entities(ProgrammingLanguages.name).filter_by(id=pen.programming_languages_id).first()[0]
         total_pending.append((pen, lang_name))
 
-    pending_chall = pending[0]
 
     challenge_data = ChallengesStats.query.filter_by(solved=True, users_id=user_id).all()
 
