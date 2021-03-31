@@ -4,11 +4,7 @@
 <h1 class="title" align="center">
   Welcome, {{name}}!
 </h1>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<h1> {{ messages[0] }}</h1>
-{% endif %}
-{% endwith%}
+
 <div class="row">
     <div id="sidebar" class="col-sm-4">
         Hello
@@ -35,14 +31,51 @@
     <div id="mainbox" class="col-lg-8">
 
         <h2>
-          {% if last_login %}
-          Last time you visited us was {{ last_login }}.<br>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          Last time you visited us was {{ messages[0] }}.<br>
           {% endif %}
+          {% endwith%}
           User related stuff
         </h2>
         {{ total_pending }}
     </div>
 
+<canvas id="solved_propotrtion" width="600" height="400"></canvas>
 
+<script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
+
+<script>
+  var chart_canvas = document.getElementById("solved_propotrtion");
+  Chart.defaults.global.defaultFontFamily = "Lato";
+  Chart.defaults.global.defaultFontSize = 18;
+
+  var chart_data = {
+    labels: ["Python",
+            "Perl",
+            "R"
+    ],
+    datasets: [
+      {
+        data: [{{python_data}},{{perl_data}},{{r_data}}],
+        backgroundColor:["#ef8a62","#f7f7f7","#67a9cf"]
+      }
+    ]};
+
+  var chartOptions = {
+    rotation: -Math.PI,
+    circumference: Math.PI,
+    legend:{position:'bottom'},
+
+  };
+
+  var doughnut_chart =new Chart(chart_canvas, {
+    type: 'doughnut',
+    data: chart_data,
+    options: chartOptions
+  });
+</script>
 </div>
+
+
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from flask_login import login_required, current_user
 from . import db
 from .models import *
@@ -23,4 +23,19 @@ def profile():
 
     total_pending = len(pending)
 
-    return render_template('profile.html', name=current_user.name, last_login=last_login, total_solved = total_solved, total_score=total_score, total_pending=total_pending)
+    challenge_data = ChallengesStats.query.filter_by(solved=True, users_id=user_id).all()
+
+    r_solved=0
+    perl_solved=0
+    python_solved=0
+
+    for item in challenge_data:
+        if item.programming_languages_id==1:
+            python_solved+=1
+        elif item.programming_languages_id==2:
+            perl_solved+=1
+        else:
+            r_solved+=1
+
+    return render_template('profile.html', name=current_user.name, last_login=last_login, total_solved = total_solved,
+        total_score=total_score, total_pending=total_pending,r_data=r_solved, perl_data=perl_solved, python_data=python_solved)
