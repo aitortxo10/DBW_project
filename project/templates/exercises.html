@@ -1,39 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="alert alert-success" role="alert">
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
-<table class="table">
-  <thead>
-    <th scope="col">Challenge</th>
-    <th scope="col">Difficulty</th>
-    <th scope="col">Go to challenge</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
+<div class="container" id="content_fill">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <div class="alert alert-success" role="alert">
+          {{ messages[0] }}
+      </div>
+  {% endif %}
+  {% endwith %}
+  <table class="table">
+    <thead>
+      <th scope="col">Challenge</th>
+      <th scope="col">Difficulty</th>
+      <th scope="col">Go to challenge</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
 
-  </thead>
-  <tbody>
-    {% for item in exercise_list %}
-      <tr>
-        <td>{{ item.name}}</td>
-        <td>{{ item.level }}</td>
-        {% if current_user.is_authenticated %}
-        {% for language in item.languages %}
-            <td>
-                <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
-                    <img src="{{ url_for('static', filename='logo/' + language.languages.name + '.png') }}" width="15" height="15">
-                </a>
-            </td>
-        {% endfor %}
-        {% else %}
-            <td> Please Log in</td>
-        {% endif %}
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for item in exercise_list %}
+        <tr>
+          <td>{{ item.name}}</td>
+          <td>{{ item.level }}</td>
+          {% if current_user.is_authenticated %}
+          {% for language in item.languages %}
+              <td>
+                  <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
+                      <img src="{{ url_for('static', filename='logo/' + language.languages.name + '.png') }}" width="15" height="15">
+                  </a>
+              </td>
+          {% endfor %}
+          {% else %}
+              <td> Please Log in</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
