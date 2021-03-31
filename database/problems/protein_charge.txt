@@ -1,0 +1,9 @@
+Name ; Protein charge
+Instructions ; To simplify the problem, let's consider pH to be neutral. Calculate if a protein has more negatively-charged amino acids than positively-charged amino acids.
+Mock_solution ; False
+Test_data ; MSDAAVDTSSEITTKDLKEKKEVVEEAENGRDAPANGNAENEENGEQEADNEVDDGDEDEEAESATGKRAAEDDEDDDVDTKKQKTDEDD
+Solution ; True
+Hint ; The negatively-charged amino acids are the Aspartic acid (D) and Glutamic acid (E), the positive amino acids are Arginine (R), Histidine (H) and Lysine (K).
+Level ; 2
+Languages ; Python3.8, Perl5, R4.0.2
+Categories ; Introduction, Proteins
