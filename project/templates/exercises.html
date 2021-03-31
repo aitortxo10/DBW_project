@@ -24,11 +24,11 @@
         <td>{{ item.level }}</td>
         {% if current_user.is_authenticated %}
 
-          {% if not max_scores[loop.index0] %}
-          <td> Not available </td>
+          {% if not max_scores[item.id] %}
+          <td> Not Available</td>
 
           {% else %}
-          <td> {{ max_scores[loop.index0] }}
+          <td> {{ max_scores[item.id] }}</td>
           {% endif %}
 
         {% for language in item.languages %}
