@@ -17,7 +17,7 @@
   {% endfor %}
 </div>
 
-<div id="All" class="tabcontent">
+<div id="All" class="tabcontent" >
     <table class="table">
       <thead>
         <th scope="col">Challenge</th>
@@ -38,7 +38,7 @@
             {% if current_user.is_authenticated %}
 
               {% if not max_scores[item.id] %}
-              <td> Not Available</td>
+              <td> 		- </td>
 
               {% else %}
               <td> {{ max_scores[item.id] }}</td>
@@ -46,13 +46,16 @@
 
             {% for language in item.languages %}
                 <td>
-                    <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
+                    <a class="btn btn-primary" id="language_button" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
                         <img src="{{ url_for('static', filename='logo/' + language.languages.name + '.png') }}" width="15" height="15">
                     </a>
                 </td>
             {% endfor %}
             {% else %}
-                <td> Please Log in</td>
+                <td> Log in to unlock</td>
+                <th scope="col"></th>
+        		<th scope="col"></th>
+
             {% endif %}
           </tr>
         {% endfor %}
@@ -83,7 +86,7 @@
             {% if current_user.is_authenticated %}
 
               {% if not max_scores[item.id] %}
-              <td> Not Available</td>
+              <td> 		- </td>
 
               {% else %}
               <td> {{ max_scores[item.id] }}</td>
@@ -91,13 +94,15 @@
 
             {% for language in item.languages %}
                 <td>
-                    <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
+                    <a class="btn btn-primary" id="language_button" href="{{ url_for('auth.detailed_exercise', id=item.id, language=language.languages.name) }}" role="button"> {{ language.languages.name }}
                         <img src="{{ url_for('static', filename='logo/' + language.languages.name + '.png') }}" width="15" height="15">
                     </a>
                 </td>
             {% endfor %}
             {% else %}
-                <td> Please Log in</td>
+                <td> Log in to unlock</td>
+		        <th scope="col"></th>
+        		<th scope="col"></th>
             {% endif %}
           </tr>
         {% endfor %}
