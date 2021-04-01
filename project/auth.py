@@ -8,11 +8,11 @@ import datetime
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
+@auth.route('/biocodemy/login')
 def login():
     return render_template('login.html')
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/biocodemy/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -36,17 +36,17 @@ def login_post():
     db.session.commit()
     return redirect(url_for('main.profile')) #If the login info is correct, load the profile of the user
 
-@auth.route('/signup/')
+@auth.route('/biocodemy/signup/')
 def signup():
     return render_template('signup.html')
 
-@auth.route('/logout')
+@auth.route('/biocodemy/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
-@auth.route('/signup', methods=['POST'])
+@auth.route('/biocodemy/signup', methods=['POST'])
 def signup_post():
     #First extract all the data from the signup form
     name = request.form.get('name')
@@ -75,7 +75,7 @@ def signup_post():
     login_user(new_user, remember=True)
     return redirect(url_for('main.profile'))
 
-@auth.route('/exercises')
+@auth.route('/biocodemy/exercises')
 def exercises():
     exercise_list = Challenges.query.join(LanguagesChallenges).join(ProgrammingLanguages).order_by(Challenges.level)
 
@@ -121,7 +121,7 @@ def exercises():
     else:
         return render_template('exercises.html', exercise_list=exercise_list, tab_categories=tab_categories)
 
-@auth.route('/detailed_exercise/<id>/<language>')
+@auth.route('/biocodemy/detailed_exercise/<id>/<language>')
 @login_required
 def detailed_exercise(id, language):
     # get parametres from url
@@ -135,7 +135,7 @@ def detailed_exercise(id, language):
 
     return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
-@auth.route('/detailed_exercise/<id>/<language>', methods=['POST'])
+@auth.route('/biocodemy/detailed_exercise/<id>/<language>', methods=['POST'])
 def detailed_exercise_post(id,language):
 
     # obtain parametres such as current user and challenge and language
@@ -235,7 +235,7 @@ def detailed_exercise_post(id,language):
         return render_template('detailed_exercise.html',challenge=challenge, id=id, language=language, stats=stats)
 
 # background process happening without any refreshing
-@auth.route('/create_entry/<challenge>/<language>', methods=['GET'])
+@auth.route('/biocodemy/create_entry/<challenge>/<language>', methods=['GET'])
 def background_process_test(challenge, language):
 
     #obtain current user id, a current time and programming language used

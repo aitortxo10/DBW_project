@@ -5,12 +5,12 @@ from .models import *
 
 main=Blueprint('main', __name__)
 
-@main.route('/')
+@main.route('/biocodemy/')
 
 def index():
     return render_template('index.html')
 
-@main.route('/profile')
+@main.route('/biocodemy/profile')
 @login_required
 def profile():
     user_id = current_user.id
