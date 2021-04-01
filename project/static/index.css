@@ -55,16 +55,16 @@ a {
     color: rgba(255, 255, 255, 0.8);
     border: 0;
 }
- 
+
 .navbar-dark .navbar-nav .nav-link:hover {
     color: #fff;
 }
- 
+
 .navbar-dark .navbar-nav .nav-link:focus {
     color: #fff;
     outline: 0;
 }
- 
+
 .navbar-expand-md .navbar-nav .nav-link {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -100,7 +100,7 @@ a {
   }
 
 }
- 
+
 /*
 button{
   padding: 9px 25px;
@@ -162,12 +162,12 @@ button:hover {
   border-width: 2px;
   border-color: #40c999;
   box-shadow: 0 0 20px #40c999;
-  padding: 15px 30px 10px 30px; 
+  padding: 15px 30px 10px 30px;
   margin-bottom: 50px;
 }
 
 #problem {
-  padding: 30px 25px 30px 25px; 
+  padding: 30px 25px 30px 25px;
   background-color: #343445;
   border-style: solid;
   border-width: 2px;
@@ -195,7 +195,7 @@ button:hover {
   border-style: solid;
   border-width: 2px;
   border-color: #40c999;
-  padding: 10px 20px 10px 10px; 
+  padding: 10px 20px 10px 10px;
   margin-top: 10px;
 }
 
@@ -211,8 +211,8 @@ button:hover {
 }
 
 .roboto{
-  font-family: 'Roboto Mono', monospace; 
-  font-weight: 200; 
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 200;
   color: whitesmoke;
 }
 
@@ -229,6 +229,42 @@ button:hover {
   font-weight: 400;
   font-size: 20px;
   color: whitesmoke;
+}
+
+/* Categories tabs in exercises */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
 }
 
 /* Profile */

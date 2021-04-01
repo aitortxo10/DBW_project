@@ -77,6 +77,10 @@ class Challenges(db.Model):
     # one-to-many LanguagesChallenges <-> Challenges
     languages = relationship("LanguagesChallenges", back_populates="challenges")
 
+    # many-to-many Challenges <-> Cateogries through secondary Table
+    categories = relationship('Categories', secondary=categories_challenges, back_populates="challenges")
+
+
     def __repr__(self):
         return "Challenge(%s)" %repr(self.name)
 
@@ -84,6 +88,10 @@ class Challenges(db.Model):
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45))
+
+
+    # many-to-many Challenges <-> Cateogries through secondary Table
+    challenges = relationship('Challenges', secondary=categories_challenges, back_populates="categories")
 
 class ProgrammingLanguages(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,1 +1,1 @@
-pip3 install flask flask-sqlalchemy flask-login email-validator pylint
+pip3 install uwsgi Flask Werkzeug==0.16.1 flask-sqlalchemy flask-login email-validator pylint

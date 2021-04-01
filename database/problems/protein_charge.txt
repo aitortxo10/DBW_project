@@ -1,5 +1,5 @@
 Name ; Protein charge
-Instructions ; To simplify the problem, let us consider pH to be neutral. Calculate if a protein has more negatively-charged amino acids than positively-charged amino acids.
+Instructions ; To simplify the problem, consider pH to be neutral. Calculate if a protein has more negatively-charged amino acids than positively-charged amino acids.
 Mock_solution ; False
 Test_data ; MSDAAVDTSSEITTKDLKEKKEVVEEAENGRDAPANGNAENEENGEQEADNEVDDGDEDEEAESATGKRAAEDDEDDDVDTKKQKTDEDD
 Solution ; True
