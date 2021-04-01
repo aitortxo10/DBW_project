@@ -11,50 +11,77 @@
             <img src="{{ url_for('static', filename='profile.png') }}" alt=""/>
           </div>
 
-          <h2>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            Last time you visited us was {{ messages[0] }}.<br>
-            {% endif %}
-            {% endwith%}
-            User related stuff
-          </h2>
+          <div class="info_container">
+
+            <div id="name_profile">{{ name }}</div>
+
+            <ul class="no-bullets">
+              <li>You have solved: {{ total_solved }} challenges</li>
+              <li>Your total score is: {{ total_score }}</li>
+            </ul>
+
+          </div>
+
         </div>
       </div>
 
       <div id="mainbox" class="column">
-          You have {{ total_pending|length }} pending challenges.<br>
 
-          {% for pen in total_pending %}
-              <a class="btn btn-primary" href="{{ url_for('auth.detailed_exercise', id=pen[0].challenges.id, language=pen[1]) }}" role="button">
-                  {{ pen[0].challenges.name }}
-              </a>
-          {% endfor %}
-        Hello
-        <br>
-        <table style="width: 100%">
-            <tbody>
-                <td style="border-bottom: 1px solid white">
-                    Solved challenges:<br>
-                    {{ total_solved }}
-                </td>
-                <td style="border-bottom: 1px solid white">
-                    Personal score:<br>
-                    {{ total_score }}
-                </td>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="container" id="welcome">
+            Hi :) It is nice to see you again. Last time you visited us was: {{ messages[0] }}.
+          </div>
+        {% endif %}
+        {% endwith%}
 
-            </tbody>
-        </table>
-        <br>
-        <br>
-        <br>
-        <br>
 
-        <div class="container" style="max-height: 20% ">
-          {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
-            <canvas id="solved_propotrtion" width="10" height="3"></canvas>
+        <div class="container" id="pending_challenges">
+
+          {% if total_pending|length == 0 %}
+            <div id="pending_title">You don't have any pending challenge. Why don't you take a look at the list of available ones:
+              <div style="text-align: center; margin-top: 20px">
+                <a class="btn btn-primary" id="problem_button" href="{{ url_for('auth.exercises') }}" role="button">SHOW ME</a>
+              </div>
+            </div>
+
+          {% else %}
+
+            <div id="pending_title">You have already started {{ total_pending|length }} challenges. Why don't you try to finish them?
+               <table class="table" id="pending_table">
+                 <thead>
+                    <th scope="col">Challenge</th>
+                    <th scope="col">Programming Language</th>
+                    <th scope="col" style="text-align: center">Go to challenge</th>
+                  </thead>
+                  <tbody>
+                    {% for pen in total_pending %}
+                      <tr>
+                        <td>{{ pen[0].challenges.name }}</td>
+                        <td>{{ pen[1] }}</td>
+                        <td style="text-align: center;">
+                          <a class="btn btn-primary" id="problem_button" style="font-size: 18px; padding: 2px 15px;" href="{{ url_for('auth.detailed_exercise',  id=pen[0].challenges.id, language=pen[1]) }}" role="button"> GO </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>                              
+            </div>
+
           {% endif %}
+
         </div>
+
+        {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
+        <div class="container" style="margin-top: 35px; margin-bottom: 70px">
+
+          <div id="pending_title" style="padding-bottom: 35px">
+            These are your favorite programming languages:
+          </div>
+
+          <canvas id="solved_propotrtion" width="10" height="3"></canvas> 
+        </div>
+        {% endif %}
 
       </div>
   
@@ -90,6 +117,17 @@
       type: 'doughnut',
       data: chart_data,
       options: chartOptions
+    });
+  </script>
+
+  <script>
+    (window).scroll(function (event) {
+      var windowTop = $(this).scrollTop();        
+      if (windowTop >= $(".footer").offset().top) {
+          $("#content_column").addClass("fixed");
+      } else {
+          $("#content_column").removeClass("fixed");
+      }
     });
   </script>
 
