@@ -1,123 +1,125 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="alert alert-danger" role="alert">
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
-<div class="container" id="heading">
-  <h1 class="title">
-    {{ challenge.name }}
-  </h1>
-</div>
-
-<div class="container" id="problem">
-  <h2 class="statement">
-    {{ challenge.instructions }}
-  </h2>
-{% if not stats %}
-  <div class="container" id ="challenge_start">
-    <form>
-        <a href="#" id="test"><button id="problem_button" class='btn btn-primary' onclick="start_challenge()">Start the Challenge</button></a>
-    </form>
+<div class="container" id="content_fill">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <div class="alert alert-danger" role="alert">
+          {{ messages[0] }}
+      </div>
+  {% endif %}
+  {% endwith %}
+  <div class="container" id="heading">
+    <h1 class="title">
+      {{ challenge.name }}
+    </h1>
   </div>
-{% endif %}
 
-  <div id="challenge" class="container" {% if not stats %} style="display: none;" {% endif %}>
-
-    <div id="hints" class="container">
-      <button onclick="display_hint()" class="btn btn-primary" id="problem_button">Need some help?</button>
-      <div class="container" id="hidden_hint" style="display: none;">
-        <p> {{ challenge.hint }}</p>
-      </div>
-    </div>
-
-    <div class="container" id="problem_container">
-      <a style="font-size: 20px; font-weight: 600">Sample Output</a>
-      <div class="container" id="dataset">
-        <a class="roboto" style="font-size: 23px; word-break: break-all">
-          {{challenge.mock_solution}}
-        </a>
-      </div>
-    </div>
-
-    <div class="container" id="problem_container">
-      <a style="font-size: 20px; font-weight: 600">Data</a>
-      <div class="container" id="dataset">
-        <a class="roboto" style="font-size: 23px; word-break: break-all">
-          {{challenge.test_data}}
-        </a>
-      </div>
-    </div>
-
-    <div class="container" id="problem_container" style="margin-bottom: 0">
-      <a style="font-size: 20px; font-weight: 600">Your Solution</a>
-      <form method="POST" action="/detailed_exercise/{{id}}/{{language}}"  enctype = "multipart/form-data">
-          <div class="control">
-              <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
-              {% if language=="Python3.8" %}
-              <div style="font-family: 'Nunito', sans-serif; font-weight: 400; padding: 20px 0 10px 15px; font-size: 18px">Would you like to evaluate the quality of your code? Submit it here: </div>
-              <input style="padding-left: 15px" type="file" name="file" accept=".py">
-              {% endif %}
-              <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value='0'>
-          </div>
-          <button class="btn btn-primary" id="problem_button" style="margin-top: 35px; margin-left: 15px">Submit Answer</button>
+  <div class="container" id="problem">
+    <h2 class="statement">
+      {{ challenge.instructions }}
+    </h2>
+  {% if not stats %}
+    <div class="container" id ="challenge_start">
+      <form>
+          <a href="#" id="test"><button id="problem_button" class='btn btn-primary' onclick="start_challenge()">Start the Challenge</button></a>
       </form>
     </div>
+  {% endif %}
+
+    <div id="challenge" class="container" {% if not stats %} style="display: none;" {% endif %}>
+
+      <div id="hints" class="container">
+        <button onclick="display_hint()" class="btn btn-primary" id="problem_button">Need some help?</button>
+        <div class="container" id="hidden_hint" style="display: none;">
+          <p> {{ challenge.hint }}</p>
+        </div>
+      </div>
+
+      <div class="container" id="problem_container">
+        <a style="font-size: 20px; font-weight: 600">Sample Output</a>
+        <div class="container" id="dataset">
+          <a class="roboto" style="font-size: 23px; word-break: break-all">
+            {{challenge.mock_solution}}
+          </a>
+        </div>
+      </div>
+
+      <div class="container" id="problem_container">
+        <a style="font-size: 20px; font-weight: 600">Data</a>
+        <div class="container" id="dataset">
+          <a class="roboto" style="font-size: 23px; word-break: break-all">
+            {{challenge.test_data}}
+          </a>
+        </div>
+      </div>
+
+      <div class="container" id="problem_container" style="margin-bottom: 0">
+        <a style="font-size: 20px; font-weight: 600">Your Solution</a>
+        <form method="POST" action="/detailed_exercise/{{id}}/{{language}}"  enctype = "multipart/form-data">
+            <div class="control">
+                <input class="form-control input-lg" type="answer" name="answer" placeholder="Please enter your answer here" required style="margin-top:15px">
+                {% if language=="Python3.8" %}
+                <div style="font-family: 'Nunito', sans-serif; font-weight: 400; padding: 20px 0 10px 15px; font-size: 18px">Would you like to evaluate the quality of your code? Submit it here: </div>
+                <input style="padding-left: 15px" type="file" name="file" accept=".py">
+                {% endif %}
+                <input class="form-control input-lg" type="hidden" id = "hints" name="hints" value='0'>
+            </div>
+            <button class="btn btn-primary" id="problem_button" style="margin-top: 35px; margin-left: 15px">Submit Answer</button>
+        </form>
+      </div>
+    </div>
+
   </div>
 
-</div>
-
-<script>
-  function display_hint(){
-    var x = document.getElementById("hidden_hint");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-      document.getElementById("hints").value="1";
+  <script>
+    function display_hint(){
+      var x = document.getElementById("hidden_hint");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        document.getElementById("hints").value="1";
+      }
     }
-  }
-</script>
+  </script>
 
-<script>
-  function start_challenge(){
-    var x = document.getElementById("challenge");
-    if (x.style.display === "none") {
-      x.style.display = "block";
+  <script>
+    function start_challenge(){
+      var x = document.getElementById("challenge");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      }
+      document.getElementById("challenge_start").style.display = 'none';
     }
-    document.getElementById("challenge_start").style.display = 'none';
-  }
-</script>
-<!-- If the challenge was already started, directly hide the start timer button -->
-{% if stats %}
-<script>start_challenge();</script>
-{% endif %}
+  </script>
+  <!-- If the challenge was already started, directly hide the start timer button -->
+  {% if stats %}
+  <script>start_challenge();</script>
+  {% endif %}
 
-<!-- Two possible options for the start-time button
-<script type=text/javascript>
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-    // this method gets called if the state of the request changes (it succeeds of fails)
-    // you will probably want to update your page accordingly here
-    };
-    request.open('POST', '/test2');
-    request.send();
-</script> -->
-<script type=text/javascript>
-    let challenge = JSON.parse('{{id | tojson }}');
-    let language = JSON.parse('{{language | tojson }}');
+  <!-- Two possible options for the start-time button
+  <script type=text/javascript>
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function () {
+      // this method gets called if the state of the request changes (it succeeds of fails)
+      // you will probably want to update your page accordingly here
+      };
+      request.open('POST', '/test2');
+      request.send();
+  </script> -->
+  <script type=text/javascript>
+      let challenge = JSON.parse('{{id | tojson }}');
+      let language = JSON.parse('{{language | tojson }}');
 
-    $(function() {
-      $('a#test').bind('click', function() {
-        $.getJSON($SCRIPT_ROOT + '/create_entry/'+ challenge +'/'+ language,
-            function(data) {
-          //do nothing with the JSON data comming from the Flask APP.
+      $(function() {
+        $('a#test').bind('click', function() {
+          $.getJSON($SCRIPT_ROOT + '/create_entry/'+ challenge +'/'+ language,
+              function(data) {
+            //do nothing with the JSON data comming from the Flask APP.
+          });
+          return false;
         });
-        return false;
       });
-    });
-</script>
+  </script>
+</div>
 
 {% endblock %}

@@ -14,8 +14,6 @@
           href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet"
           href="{{ url_for('static', filename='index.css') }}">
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='profile.css') }}">
 
 
     <!-- For AJAX -->
@@ -73,17 +71,25 @@
             </a>
           </li>
           {% endif %}
-        </ul>
-      </div>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Meet the developers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u189133/"> Arnau Llinàs</a>
+            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u188822/">Maria Torralvo</a>
+            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u185755/">Aitor Gonzalez</a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="container" id="python_fill">
-      {% block content %}
-      {% endblock %}
-  </div>
+  {% block content %}
+  {% endblock %}
 
-
-  <footer class="footer">
+  <footer class="footer" style="clear: both">
       <span class="text-muted" style="padding: 0 40px 0 0"><a>&copy; 2021 bioCodemy</a></span>
   </footer>
 
