@@ -222,7 +222,7 @@ def detailed_exercise_post(id,language):
             var.score=((7.5 - 2.5*hints - pen_tries - pen_time)/7.5)*10
 
         db.session.commit()
-        flash("Problem solved correctly")
+        flash("Problem solved correctly.")
         return redirect(url_for('auth.exercises'))
 
     else:

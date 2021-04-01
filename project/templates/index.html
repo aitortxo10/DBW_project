@@ -1,17 +1,111 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container" id="content_fill">
-	<div class="row h-100 align-items-center">
-		<div class="col-sm">
-			<img src="{{ url_for('static', filename='computer.png') }}"></img>
+<div class="container-fluid" style="padding: 0">
+	<div class="container-fluid" id="index_fill">
+		<div class="row align-items-center" id="row-adjust"style="height:85vh">
+			<div class="col" style="text-align: center">
+				<img src="{{ url_for('static', filename='computer.png') }}"></img>
+			</div>
+			<div class="col" style="padding: 0 0 75px 0;">
+				<div id="main-page-title">
+			  		<p>bioCodemy</p>
+				</div>		
+				<div id="main-page">
+			  		<p>Do you want to improve your bioinformatics analysis skills?</p>
+			  		<p>Join our community and have fun while learning.</p>
+				</div>
+			</div>
 		</div>
-		<div class="col-sm" style="text-align: center;">
-		<a id="main-page">
-	  		<p>Do you want to improve your bioinformatics analysis skills?</p>
-	  		Start NOW with our fun coding challenges.
-		</a>
+		<br>
+		<hr id="main-page-line">
+
+		<div class="row align-items-center" style="margin-top: 60px">
+			<div class="col">
+				<div id="main-page">
+			  		<p>Practice your coding abilities with our challenges focused on bioinformatics.</p>
+			  		<br>
+			  		<p>It doesn't matter if you are an expert or a newbie, there are multiple levels for everyone!</p>
+			  		<br>
+			  		<a class="btn btn-primary" id="problem_button" style="font-size: 22px" href="{{ url_for('auth.exercises') }}" role="button">Take a look at the catalogue</a>
+
+				</div>
+			</div>
+			<div class="col" style="text-align: center; padding: 0">
+				<img class="fit-image" src="{{ url_for('static', filename='demo-problem.png') }}"></img>
+			</div>
+		</div>
+
+		<div class="row align-items-center" style="margin-top: 60px">
+			<div class="col-8" style="text-align: center; padding: 0">
+				<img class="fit-image" style="box-shadow: 0 0 20px #40c999;" src="{{ url_for('static', filename='demo-prof.png') }}"></img>
+			</div>
+			<div class="col-4">
+				<div id="main-page">
+			  		<p>You could use your favorite programming language or maybe try something new.</p>
+				</div>
+			</div>
 		</div>
 	</div>
+	<div class="container-fluid" style="background-color: #343445; ">
+		<div class="container-fluid" id="about-us">
+			<div class="row" style="font-size: 40px; padding: 25px 0;">
+			<p>About us</p>				
+			</div>
+			<div class="row" style="font-size: 22px;">
+			<p>This website was created as the final project for <i>"Databases and Web development"</i> course,  part of the Master in Bioinformatics for Health Sciences (Universitat Pompeu Fabra) 2020-2021.</p>				
+			</div>
+			<div class="row align-items-center">
+				<div class="col">
+		            <div style="padding-top: 40px">
+
+			            <div class="img-container">
+			              <img src="/static/profile.png" alt="">
+			            </div>
+
+			            <div class="info_container">
+
+			              <div id="name_profile" style="font-size: 35px">Aitor</div>
+
+			  			<a class="btn btn-primary" id="problem_button" style="font-size: 22px" href="http://mmb.irbbarcelona.org/formacio/~u185755/" role="button">Visit personal website</a>
+			          	</div>
+
+		        	</div>
+		        </div>	
+				<div class="col">
+		            <div style="padding-top: 40px">
+
+			            <div class="img-container">
+			              <img src="/static/profile.png" alt="">
+			            </div>
+
+			            <div class="info_container">
+
+			              <div id="name_profile" style="font-size: 35px">María</div>
+
+			  			<a class="btn btn-primary" id="problem_button" style="font-size: 22px" href="http://mmb.irbbarcelona.org/formacio/~u188822/" role="button">Visit personal website</a>
+			          	</div>
+
+		        	</div>					
+				</div>
+				<div class="col">
+		            <div style="padding-top: 35px">
+
+			            <div class="img-container">
+			              <img src="/static/profile.png" alt="">
+			            </div>
+
+			            <div class="info_container">
+
+			              <div id="name_profile" style="font-size: 38px">Arnau</div>
+
+			  			<a class="btn btn-primary" id="problem_button" style="font-size: 22px" href="http://mmb.irbbarcelona.org/formacio/~u189133/" role="button">Visit personal website</a>
+			          	</div>
+
+		        	</div>
+				</div>					
+			</div>
+		</div>
+	</div>	
 </div>
 {% endblock %}
