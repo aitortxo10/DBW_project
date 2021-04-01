@@ -98,6 +98,7 @@ a {
     float: none;
     width: 100%;
   }
+
 }
  
 /*
@@ -237,7 +238,6 @@ button:hover {
   margin: 5px;
   width: 30%;
   min-height: 99%;
-  position: sticky;
   float: left;
   background-color: #343445;
   border-style: solid;
@@ -247,11 +247,12 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 #content_column{
   position: fixed;
+  max-width: 30%;
+  padding: 20px 15px 0 15px;
 }
 
 .img-container {
@@ -265,14 +266,74 @@ button:hover {
     display: inline-block;
 }
 
+.info_container{
+  text-align: center;
+}
+
+#name_profile{
+  margin-top: 30px;
+  margin-bottom: 40px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 200;
+  font-size: 50px;
+  word-break: break-all;
+
+
+}
+
+.no-bullets{
+  list-style-type: none;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.no-bullets > li{
+  margin-top: 10px;
+}
 
 #mainbox{
   width: 67%;
   float: right;
-  min-height: 100%;
+  margin-top: 35px;
 }
 
-@media screen and (max-width: 600px) {
+#welcome{
+  margin-bottom: 30px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #40c999;
+  box-shadow: 0 0 20px #40c999;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+#pending_challenges{
+  padding: 20px;
+}
+
+#pending_title{
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 23px;
+  color: whitesmoke;
+}
+
+#pending_table{
+  margin-top: 30px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: whitesmoke;
+  border-bottom: 1px solid;
+}
+
+@media screen and (max-width: 800px) {
   .column {
     width: 100% !important;
   }
@@ -282,11 +343,13 @@ button:hover {
   }
 
   #mainbox{
+    margin-top: 0;
     min-height: 40%;
   }  
 
   #content_column{
     position: sticky;
+    min-width: 100% !important;
   }
 
 }
