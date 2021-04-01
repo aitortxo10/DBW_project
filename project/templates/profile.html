@@ -2,30 +2,34 @@
 
 {% block content %}
 
-<div class="container-fluid" id="profile_fill">
+<div class="container-fluid h-100" id="profile_fill">
+    <div class="row h-100" style="overflow: auto"">
 
-      <div id="sidebar" class="column">
-        <div id="content_column" class="column">
+      <div class="col-4 left" id="columna" style="justify-content: center">
+          
+          <div id="sidebar">         
+            <div id="content_column">
 
-          <div class="img-container">
-            <img src="{{ url_for('static', filename='profile.png') }}" alt=""/>
+            <div class="img-container">
+              <img src="/static/profile.png" alt="">
+            </div>
+
+            <div class="info_container">
+
+              <div id="name_profile">arnau</div>
+
+              <ul class="no-bullets">
+                <li>You have solved: 3 challenges</li>
+                <li>Your total score is: 3</li>
+              </ul>
+
+            </div>
+
           </div>
-
-          <div class="info_container">
-
-            <div id="name_profile">{{ name }}</div>
-
-            <ul class="no-bullets">
-              <li>You have solved: {{ total_solved }} challenges</li>
-              <li>Your total score is: {{ total_score }}</li>
-            </ul>
-
-          </div>
-
         </div>
       </div>
 
-      <div id="mainbox" class="column">
+      <div id="mainbox" class="col-8 right" id="columna">
 
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -73,7 +77,7 @@
         </div>
 
         {% if not (r_data == 0 and perl_data == 0 and python_data == 0) %}
-        <div class="container" style="margin-top: 35px; margin-bottom: 70px">
+        <div class="container" style="margin-top: 35px; margin-bottom: 50px">
 
           <div id="pending_title" style="padding-bottom: 35px">
             These are your favorite programming languages:
@@ -84,6 +88,7 @@
         {% endif %}
 
       </div>
+    </div>  
   
   <script src="{{ url_for('static', filename='Chart.min.js') }}"></script>
 
@@ -121,14 +126,7 @@
   </script>
 
   <script>
-    (window).scroll(function (event) {
-      var windowTop = $(this).scrollTop();        
-      if (windowTop >= $(".footer").offset().top) {
-          $("#content_column").addClass("fixed");
-      } else {
-          $("#content_column").removeClass("fixed");
-      }
-    });
+    window.addEventListener('resize', function () { doughnut_chart.resize() })
   </script>
 
 </div>

@@ -132,7 +132,6 @@ button:hover {
 
 #profile_fill{
   padding-left: 0;
-  height: 100%;
 }
 
 .footer {
@@ -270,25 +269,17 @@ button:hover {
 /* Profile */
 
 #sidebar{
-  padding: 30px;
-  margin: 5px;
-  width: 30%;
-  min-height: 99%;
-  float: left;
   background-color: #343445;
-  border-style: solid;
+  height:99%;
+  margin: 5px 2px 2px 5px; 
+  border-style: solid; 
   border-width: 2px;
   border-color: #40c999;
-  box-shadow: 0 0 20px #40c999;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 #content_column{
-  position: fixed;
-  max-width: 30%;
-  padding: 20px 15px 0 15px;
+  padding-top: 80px;
+
 }
 
 .img-container {
@@ -330,8 +321,6 @@ button:hover {
 }
 
 #mainbox{
-  width: 67%;
-  float: right;
   margin-top: 35px;
 }
 
@@ -370,8 +359,11 @@ button:hover {
 }
 
 @media screen and (max-width: 800px) {
-  .column {
+  #columna {
     width: 100% !important;
+    flex: none !important;
+    max-width: 100% !important;
+    padding-right: 5px;
   }
 
   #sidebar{
@@ -381,6 +373,13 @@ button:hover {
   #mainbox{
     margin-top: 0;
     min-height: 40%;
+    flex: none !important;
+    max-width: 100% !important;
+    padding-right: 5px;
+  }  
+
+  #pending_challenges{
+    max-width: 100% !important;
   }  
 
   #content_column{
