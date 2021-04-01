@@ -385,6 +385,8 @@ button:hover {
   #content_column{
     position: sticky;
     min-width: 100% !important;
+    padding-top: 45px;
+    padding-bottom: 30px;
   }
 
 }
