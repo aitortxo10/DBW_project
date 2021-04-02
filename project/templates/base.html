@@ -54,12 +54,12 @@
           </li>
           {% endif %}
           {% if current_user.is_authenticated %}
-          
+
           <li class="nav-item">
              <a href="{{url_for('auth.exercises') }}" class="nav-link">
                Challenges
              </a>
-           </li>          
+           </li>
 
           <li class="nav-item">
             <a href="{{ url_for('main.profile') }}" class="nav-link">
@@ -76,13 +76,6 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Meet the developers
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u189133/"> Arnau Llinàs</a>
-            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u188822/">Maria Torralvo</a>
-            <a class="dropdown-item" href="http://mmb.irbbarcelona.org/formacio/~u185755/">Aitor Gonzalez</a>
-          </div>
-          </li>
-
       </ul>
     </div>
   </nav>
